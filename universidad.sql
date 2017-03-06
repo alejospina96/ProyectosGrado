@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2017 at 09:51 PM
+-- Generation Time: Mar 06, 2017 at 05:25 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -79,9 +79,10 @@ CREATE TABLE `estado_trabajo_grado` (
 INSERT INTO `estado_trabajo_grado` (`epg_id`, `epg_descripcion`) VALUES
 (1, 'EN PROPUESTA'),
 (2, 'PENDIENTE'),
-(4, 'LAUREADA'),
-(6, 'APROBADA'),
-(7, 'DEVUELTA PARA CORRECCIONES');
+(3, 'LAUREADA'),
+(4, 'APROBADA'),
+(5, 'DEVUELTA PARA CORRECCIONES'),
+(6, 'ENTREGADO');
 
 -- --------------------------------------------------------
 
@@ -100,14 +101,8 @@ CREATE TABLE `estudiante` (
 --
 
 INSERT INTO `estudiante` (`estudiante_codigo`, `estudiante_persona`, `estudiante_programa`) VALUES
-(45, 45, '35'),
-(123, 132, '22'),
-(222, 333, '22'),
-(2312, 2312, '22'),
-(3332, 4442, '22'),
-(4444, 4444, '22'),
-(44444, 22222, '22'),
-(22222222, 111111111111, '23'),
+(1234, 1234, '23'),
+(12345, 123456, '35'),
 (2220141003, 1110577732, '22'),
 (2220141020, 1110563494, '22'),
 (3520151002, 19456629, '35');
@@ -128,8 +123,11 @@ CREATE TABLE `estudiante_propuesta` (
 --
 
 INSERT INTO `estudiante_propuesta` (`ep_estudiante`, `ep_trabajo_propuesto`) VALUES
+(1234, 10),
+(12345, 9),
 (2220141003, 5),
 (2220141003, 6),
+(2220141003, 11),
 (2220141020, 5);
 
 -- --------------------------------------------------------
@@ -142,6 +140,13 @@ CREATE TABLE `jurado_trabajo_grado` (
   `jtg_trabajo_grado` int(11) NOT NULL COMMENT 'Representa el trabajo de grado al que es asignado el jurado',
   `jtg_persona` bigint(20) NOT NULL COMMENT 'Representa un jurado asignado'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Informacion de los jurados de los trabajos de grados';
+
+--
+-- Dumping data for table `jurado_trabajo_grado`
+--
+
+INSERT INTO `jurado_trabajo_grado` (`jtg_trabajo_grado`, `jtg_persona`) VALUES
+(5, 19456629);
 
 -- --------------------------------------------------------
 
@@ -217,12 +222,8 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`persona_identificacion`, `persona_p_nombre`, `persona_s_nombre`, `persona_p_apellido`, `persona_s_apellido`, `persona_email`, `persona_es_jurado`) VALUES
-(132, 'dd', '(NULL)', 'aaa', 'fff', 'alejo_ospina96@hotmail.com', 0),
-(333, 'nombre', '(NULL)', 'ape1', 'ape2', 'alejo_ospina96@hotmail.com', 0),
-(2312, 'aaa', '(NULL)', 'dddd', 'sss', 'alejo_ospina96@hotmail.com', 0),
-(4442, 'we', 'asda', 'ada', 'sda', 'fw@hotmail.com', 0),
-(4444, 'aa', 'sds', 'ewew', 'wewe', 'alejo_ospina96@hotmail.com', 0),
-(22222, 'sss', '(NULL)', 'sfsf', 'sada', 'alejo_ospina96@hotmail.com', 0),
+(1234, 'Estudiante', '(NULL)', 'De ', 'Prueba', 'edp@edp.com', 0),
+(123456, 'ddd', '(NULL)', 'dsd', 'asda', 'asd@hotmail.com', 0),
 (19456629, 'HONORIO', 'ANTONIO', 'FLOREZ', 'HOYOS', 'HAFLOREZ23@HOTMAIL.COM', 1),
 (36182958, 'NIYIME', NULL, 'OSPINA', 'CARTAGENA', 'NOC661@HOTMAIL.COM', 1),
 (1110563494, 'CRISTIAN', 'HERLEY', 'GARZON', 'MORENO', 'CRISHEGAR1495@HOTMAIL.COM', 0),
@@ -247,7 +248,10 @@ CREATE TABLE `plazo` (
 --
 
 INSERT INTO `plazo` (`plazo_id`, `plazo_fecha_inicio`, `plazo_fecha_fin`, `plazo_concepto`, `plazo_multa`) VALUES
-(2, '2017-03-05', '2017-03-23', 2, 1);
+(2, '2017-03-05', '2017-03-23', 2, 1),
+(3, '2017-03-05', '2017-03-20', 1, 1),
+(4, '2017-03-05', '2017-06-06', 2, 1),
+(5, '2017-03-05', '2018-04-11', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -290,7 +294,10 @@ CREATE TABLE `propuesta` (
 
 INSERT INTO `propuesta` (`propuesta_trabajo`, `propuesta_fecha`, `propuesta_archivo`, `propuesta_concepto_estado`, `propuesta_plazo_correcciones`) VALUES
 (5, '2017-03-05', 'Administracion_14_ed_-_Harold_Koontz_Wei.pdf', 1, NULL),
-(6, '2017-03-05', 'Caso de Estudio - Proyecto de Asignatura.pdf', 1, 2);
+(6, '2017-03-05', 'Caso de Estudio - Proyecto de Asignatura.pdf', 2, 2),
+(9, '2017-03-05', 'appi.zip', 3, NULL),
+(10, '2017-03-05', 'Cuentas.txt', 3, 4),
+(11, '2017-03-06', '16901474_10211983016075812_715473061_n.jpg', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -318,16 +325,20 @@ CREATE TABLE `trabajo_grado` (
   `tg_tematica` varchar(50) COLLATE utf8_bin NOT NULL COMMENT 'Representa la tematica del trabajo de grado',
   `tg_concepto_estado` int(11) DEFAULT '1' COMMENT 'Representa el concepto del estado del trabajo de grado',
   `tg_archivo` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT 'Representa el archivo final de proyecto de grado',
-  `fecha_defensa` date DEFAULT NULL COMMENT 'Representa la fecha de defensa del trabajo de grado'
+  `fecha_defensa` date DEFAULT NULL COMMENT 'Representa la fecha de defensa del trabajo de grado',
+  `tg_plazo_entrega` int(11) DEFAULT NULL COMMENT 'Representa el plazo para su entrega'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Almacena la informacion de un trabajo de grado';
 
 --
 -- Dumping data for table `trabajo_grado`
 --
 
-INSERT INTO `trabajo_grado` (`tg_id`, `tg_modalidad`, `tg_tematica`, `tg_concepto_estado`, `tg_archivo`, `fecha_defensa`) VALUES
-(5, 1, 'TEMATICA COOL', 2, 'bootstrap.min.css', NULL),
-(6, 3, 'ASIST', 1, NULL, NULL);
+INSERT INTO `trabajo_grado` (`tg_id`, `tg_modalidad`, `tg_tematica`, `tg_concepto_estado`, `tg_archivo`, `fecha_defensa`, `tg_plazo_entrega`) VALUES
+(5, 1, 'TEMATICA COOL', 2, 'bootstrap.min.css', NULL, 3),
+(6, 3, 'ASIST', 1, NULL, NULL, NULL),
+(9, 4, 'VENTA DE COSAS', 2, NULL, NULL, 2),
+(10, 5, 'INVESTIGACION PRUEBA', 2, NULL, NULL, 5),
+(11, 2, 'HOLA SOY UNA MONOGRAFIA DE PYP', 2, 'Cuentas.txt', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -343,6 +354,24 @@ CREATE TABLE `v_propuestas` (
 ,`estudiante` bigint(20)
 ,`estado` varchar(30)
 ,`plazo_correcciones` date
+,`id_estado` int(11)
+,`id_trabajo` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_trabajos_grado`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_trabajos_grado` (
+`id` int(11)
+,`tematica` varchar(50)
+,`modalidad` varchar(30)
+,`estado` varchar(30)
+,`fecha_defensa` date
+,`plazo_entrega` date
+,`id_estado` int(11)
 );
 
 -- --------------------------------------------------------
@@ -352,7 +381,16 @@ CREATE TABLE `v_propuestas` (
 --
 DROP TABLE IF EXISTS `v_propuestas`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_propuestas`  AS  select `trabajo_grado`.`tg_id` AS `trabajo`,`propuesta`.`propuesta_fecha` AS `fecha`,`modalidad_trabajo`.`modalidad_descripcion` AS `descripcion`,`trabajo_grado`.`tg_tematica` AS `tematica`,`estudiante_propuesta`.`ep_estudiante` AS `estudiante`,`estado_propuesta`.`ep_descripcion` AS `estado`,`plazo`.`plazo_fecha_fin` AS `plazo_correcciones` from (((((`propuesta` join `trabajo_grado` on((`trabajo_grado`.`tg_id` = `propuesta`.`propuesta_trabajo`))) join `modalidad_trabajo` on((`trabajo_grado`.`tg_modalidad` = `modalidad_trabajo`.`modalidad_id`))) join `estudiante_propuesta` on((`estudiante_propuesta`.`ep_trabajo_propuesto` = `trabajo_grado`.`tg_id`))) join `estado_propuesta` on((`estado_propuesta`.`ep_id` = `propuesta`.`propuesta_concepto_estado`))) left join `plazo` on((`plazo`.`plazo_id` = `propuesta`.`propuesta_plazo_correcciones`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_propuestas`  AS  select `trabajo_grado`.`tg_id` AS `trabajo`,`propuesta`.`propuesta_fecha` AS `fecha`,`modalidad_trabajo`.`modalidad_descripcion` AS `descripcion`,`trabajo_grado`.`tg_tematica` AS `tematica`,`estudiante_propuesta`.`ep_estudiante` AS `estudiante`,`estado_propuesta`.`ep_descripcion` AS `estado`,`plazo`.`plazo_fecha_fin` AS `plazo_correcciones`,`estado_propuesta`.`ep_id` AS `id_estado`,`trabajo_grado`.`tg_id` AS `id_trabajo` from (((((`propuesta` join `trabajo_grado` on((`trabajo_grado`.`tg_id` = `propuesta`.`propuesta_trabajo`))) join `modalidad_trabajo` on((`trabajo_grado`.`tg_modalidad` = `modalidad_trabajo`.`modalidad_id`))) join `estudiante_propuesta` on((`estudiante_propuesta`.`ep_trabajo_propuesto` = `trabajo_grado`.`tg_id`))) join `estado_propuesta` on((`estado_propuesta`.`ep_id` = `propuesta`.`propuesta_concepto_estado`))) left join `plazo` on((`plazo`.`plazo_id` = `propuesta`.`propuesta_plazo_correcciones`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_trabajos_grado`
+--
+DROP TABLE IF EXISTS `v_trabajos_grado`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_trabajos_grado`  AS  select `trabajo_grado`.`tg_id` AS `id`,`trabajo_grado`.`tg_tematica` AS `tematica`,`modalidad_trabajo`.`modalidad_descripcion` AS `modalidad`,`estado_trabajo_grado`.`epg_descripcion` AS `estado`,`trabajo_grado`.`fecha_defensa` AS `fecha_defensa`,`plazo`.`plazo_fecha_fin` AS `plazo_entrega`,`trabajo_grado`.`tg_concepto_estado` AS `id_estado` from (((`trabajo_grado` join `estado_trabajo_grado` on((`trabajo_grado`.`tg_concepto_estado` = `estado_trabajo_grado`.`epg_id`))) join `modalidad_trabajo` on((`trabajo_grado`.`tg_modalidad` = `modalidad_trabajo`.`modalidad_id`))) left join `plazo` on((`trabajo_grado`.`tg_plazo_entrega` = `plazo`.`plazo_id`))) where (`trabajo_grado`.`tg_concepto_estado` > 1) ;
 
 --
 -- Indexes for dumped tables
@@ -433,12 +471,6 @@ ALTER TABLE `plazo`
   ADD KEY `fk_plazo_multa` (`plazo_multa`);
 
 --
--- Indexes for table `programa`
---
-ALTER TABLE `programa`
-  ADD PRIMARY KEY (`programa_codigo`);
-
---
 -- Indexes for table `propuesta`
 --
 ALTER TABLE `propuesta`
@@ -463,7 +495,8 @@ ALTER TABLE `prorroga`
 ALTER TABLE `trabajo_grado`
   ADD PRIMARY KEY (`tg_id`),
   ADD KEY `fk_modalidad` (`tg_modalidad`),
-  ADD KEY `fk_concepto_trabajo` (`tg_concepto_estado`);
+  ADD KEY `fk_concepto_trabajo` (`tg_concepto_estado`),
+  ADD KEY `fk_plazo_entrega` (`tg_plazo_entrega`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -483,7 +516,7 @@ ALTER TABLE `estado_propuesta`
 -- AUTO_INCREMENT for table `estado_trabajo_grado`
 --
 ALTER TABLE `estado_trabajo_grado`
-  MODIFY `epg_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Representa el id de concepto de propuesta', AUTO_INCREMENT=8;
+  MODIFY `epg_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Representa el id de concepto de propuesta', AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `modalidad_trabajo`
 --
@@ -503,7 +536,7 @@ ALTER TABLE `observacion`
 -- AUTO_INCREMENT for table `plazo`
 --
 ALTER TABLE `plazo`
-  MODIFY `plazo_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Representa el id del plazo', AUTO_INCREMENT=3;
+  MODIFY `plazo_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Representa el id del plazo', AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `prorroga`
 --
@@ -513,7 +546,7 @@ ALTER TABLE `prorroga`
 -- AUTO_INCREMENT for table `trabajo_grado`
 --
 ALTER TABLE `trabajo_grado`
-  MODIFY `tg_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Representa el id de un trabajo de grado', AUTO_INCREMENT=7;
+  MODIFY `tg_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Representa el id de un trabajo de grado', AUTO_INCREMENT=12;
 --
 -- Constraints for dumped tables
 --
@@ -567,7 +600,8 @@ ALTER TABLE `prorroga`
 --
 ALTER TABLE `trabajo_grado`
   ADD CONSTRAINT `fk_concepto_trabajo` FOREIGN KEY (`tg_concepto_estado`) REFERENCES `estado_trabajo_grado` (`epg_id`),
-  ADD CONSTRAINT `fk_modalidad` FOREIGN KEY (`tg_modalidad`) REFERENCES `modalidad_trabajo` (`modalidad_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_modalidad` FOREIGN KEY (`tg_modalidad`) REFERENCES `modalidad_trabajo` (`modalidad_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_plazo_entrega` FOREIGN KEY (`tg_plazo_entrega`) REFERENCES `plazo` (`plazo_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
