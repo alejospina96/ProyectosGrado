@@ -3,12 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/daniel/Development/ProyectosGrado/src/java/controllers/ListaTrabajosVigentesServlet.java</file>
-            <file>file:/C:/Users/daniel/Development/ProyectosGrado/web/agregarEstudiante.jsp</file>
-            <file>file:/C:/Users/daniel/Development/ProyectosGrado/src/java/controllers/ListaPropuestasEstadoServlet.java</file>
-            <file>file:/C:/Users/daniel/Development/ProyectosGrado/web/miembroComite.jsp</file>
-            <file>file:/C:/Users/daniel/Development/ProyectosGrado/web/index.jsp</file>
-            <file>file:/C:/Users/daniel/Development/ProyectosGrado/src/java/controllers/PrepararRegistrarJuradoServlet.java</file>
+            <file>file:/C:/Users/daniel/Development/Desarrollo%20de%20aplicaciones%20empresariales/ProyectosGrado/web/listaTrabajosGrado.jsp</file>
+            <file>file:/C:/Users/daniel/Development/Desarrollo%20de%20aplicaciones%20empresariales/ProyectosGrado/web/registrarPropuesta.jsp</file>
+            <file>file:/C:/Users/daniel/Development/Desarrollo%20de%20aplicaciones%20empresariales/ProyectosGrado/web/css/main.css</file>
+            <file>file:/C:/Users/daniel/Development/Desarrollo%20de%20aplicaciones%20empresariales/ProyectosGrado/src/java/controllers/PrepararAgregarEstudianteServlet.java</file>
+            <file>file:/C:/Users/daniel/Development/Desarrollo%20de%20aplicaciones%20empresariales/ProyectosGrado/src/java/controllers/ListaTrabajosVencerServlet.java</file>
+            <file>file:/C:/Users/daniel/Development/Desarrollo%20de%20aplicaciones%20empresariales/ProyectosGrado/src/java/controllers/AgregarEstudianteServlet.java</file>
+            <file>file:/C:/Users/daniel/Development/Desarrollo%20de%20aplicaciones%20empresariales/ProyectosGrado/src/java/controllers/ListaTrabajosVigentesServlet.java</file>
+            <file>file:/C:/Users/daniel/Development/Desarrollo%20de%20aplicaciones%20empresariales/ProyectosGrado/web/listaPropuestas.jsp</file>
+            <file>file:/C:/Users/daniel/Development/Desarrollo%20de%20aplicaciones%20empresariales/ProyectosGrado/web/agregarEstudiante.jsp</file>
+            <file>file:/C:/Users/daniel/Development/Desarrollo%20de%20aplicaciones%20empresariales/ProyectosGrado/src/java/controllers/Servicios.java</file>
+            <file>file:/C:/Users/daniel/Development/Desarrollo%20de%20aplicaciones%20empresariales/ProyectosGrado/src/java/controllers/ListaTrabajosJuradoServlet.java</file>
+            <file>file:/C:/Users/daniel/Development/Desarrollo%20de%20aplicaciones%20empresariales/ProyectosGrado/web/seleccionJurado.jsp</file>
         </group>
     </open-files>
 </project-private>

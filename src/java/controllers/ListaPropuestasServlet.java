@@ -6,7 +6,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.ResultSet;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,6 +33,7 @@ public class ListaPropuestasServlet extends HttpServlet {
         Servicios s = new Servicios();
         ResultSet listPropuestas = s.listPropuestas();
         request.setAttribute("listPropuestas", listPropuestas);
+        request.setAttribute("titulo", "Lista de propuestas registradas");
         RequestDispatcher dispatcher = request.getRequestDispatcher("listaPropuestas.jsp");
         dispatcher.forward(request, response);
     }

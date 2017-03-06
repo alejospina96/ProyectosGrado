@@ -16,18 +16,18 @@
     </head>
     <body>
         <jsp:include page="navbarMiembroComite.jsp"/>  
-        <h1 class="table-title">Propuestas de grado registradas</h1>
+        <h1 class="table-title"><%out.print(request.getAttribute("titulo"));%></h1>
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead class="thead-inverse">
                     <tr>
-                        <th class="center">Id Trabajo Grado</th>
-                        <th class="center">Fecha de propuesta</th>
-                        <th class="center">Modalidad</th>
-                        <th class="center">Tem&aacute;tica</th>
-                        <th class="center">C&oacute;digo estudiante</th>  
-                        <th class="center">Estado propuesta</th>  
-                        <th class="center">Plazo entrega correcciones</th>    
+                        <th valign="middle" class="center">Id Trabajo Grado</th>
+                        <th valign="middle" class="center">Fecha de propuesta</th>
+                        <th valign="middle" class="center">Modalidad</th>
+                        <th valign="middle" class="center">Tem&aacute;tica</th>
+                        <th valign="middle" class="center">C&oacute;digo estudiante</th>  
+                        <th valign="middle" class="center">Estado propuesta</th>  
+                        <th valign="middle" class="center">Plazo entrega correcciones</th>    
                     </tr>
                 </thead>
                 <tbody>

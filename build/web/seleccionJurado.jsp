@@ -28,7 +28,7 @@
                                 if (listEstados != null) {
                                     while (listEstados.next()) {
                             %>
-                            <option value="<%out.print(listEstados.getInt(1));%>"><%out.println(Utilidades.toFirstUppercase(listEstados.getString(2)));%></option>
+                            <option value="<%out.print(listEstados.getInt(1));%>"><%out.println(Utilidades.toFirstUppercase(listEstados.getString(2))+" "+Utilidades.toFirstUppercase(listEstados.getString(4)));%></option>
                             <%
                                     }
                                 }

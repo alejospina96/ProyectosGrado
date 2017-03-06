@@ -6,7 +6,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.ResultSet;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,10 +30,11 @@ public class ListaTrabajosVigentesServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {        
-        System.out.println("entro");
+        
         Servicios s = new Servicios();
         ResultSet listTrabajosVigentes = s.listTrabajosGradoVigentes();
         request.setAttribute("listTrabajosVigentes", listTrabajosVigentes);
+        request.setAttribute("titulo", "Lista de trabajos vigentes");
         RequestDispatcher dispatcher = request.getRequestDispatcher("listaTrabajosGrado.jsp");
         dispatcher.forward(request, response);
     }

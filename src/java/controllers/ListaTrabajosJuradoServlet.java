@@ -6,7 +6,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.ResultSet;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,6 +33,13 @@ public class ListaTrabajosJuradoServlet extends HttpServlet {
         Servicios s = new Servicios();
         ResultSet listTrabajosJurado = s.listTrabajosGradoPorJurado(Long.parseLong(request.getParameter("selJurado")));
         request.setAttribute("listTrabajosVigentes", listTrabajosJurado);
+         try{
+            listTrabajosJurado.next();
+            request.setAttribute("titulo", "Lista de trabajos del jurado "+Utilidades.toFirstUppercase(listTrabajosJurado.getString(8)));
+            listTrabajosJurado.beforeFirst();
+        }catch (Exception e){
+            
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("listaTrabajosGrado.jsp");
         dispatcher.forward(request, response);
     }

@@ -19,22 +19,32 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">   
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="index.jsp">Inicio</a></li>
-                        <li><a href="PrepararAgregarEstudiante">Registrar un estudiante</a></li>
-                        <li><a href="PrepararRegistrarJurado">Registrar un jurado</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Estudiantes<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="PrepararAgregarEstudiante">Registrar un estudiante</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Jurados<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="PrepararRegistrarJurado">Registrar un jurado</a></li>
+                            </ul>
+                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Propuestas<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="ListaPropuestas">Ver propuestas registradas</a></li>
-                                <li><a href="ListaPropuestasVencer">Ver propuestas por vencer</a></li>
                                 <li><a href="SeleccionEstadoPropuesta">Buscar propuestas por estado</a></li>
+                                <li><a href="ListaPropuestasVencer">Ver propuestas proximo vencimiento</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Trabajos de grado<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="ListaTrabajosVigentes">Ver trabajos vigentes</a></li>
-                                <li><a href="ListaTrabajosVencer">Ver trabajos por vencer</a></li>
                                 <li><a href="SeleccionJurado">Buscar propuestas por jurado</a></li>
+                                <li><a href="ListaTrabajosVencer">Ver trabajos proximo vencimiento</a></li>
                             </ul>
                         </li>
                     </ul>

@@ -34,6 +34,7 @@ public class ListaPropuestasVencerServlet extends HttpServlet {
         Servicios s = new Servicios();
         ResultSet listPropuestas = s.listPropuestasPorVencerse();
         request.setAttribute("listPropuestas", listPropuestas);
+        request.setAttribute("titulo", "Propuestas por vencerse en los proximos 60 dias");
         RequestDispatcher dispatcher = request.getRequestDispatcher("listaPropuestas.jsp");
         dispatcher.forward(request, response);
     }

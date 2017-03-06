@@ -20,8 +20,7 @@
         <script src="js/vendor/respond.min.js"></script>
 
     </head>
-    <body>
-        
+    <body>        
         <div class="level level-hero hero-home has-hint">
             <div class="container full-height">
                 <div class=v-align-parent>
@@ -39,12 +38,10 @@
                             </a>
                             <a class="btn btn-prepend" href="miembroComite.jsp">
                                 <i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;&nbsp;Miembro del comite
-                            </a>
+                            </a>    
                         </div>
                     </div>
                 </div>
-
-                <div class=hint-arrow></div>
             </div>
         </div>
     </body>
