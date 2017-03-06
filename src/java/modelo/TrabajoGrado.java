@@ -20,10 +20,9 @@ public class TrabajoGrado {
     private EstadoTrabajoGrado estado;
     private File archivo;
     private Date fechaDefensa;
-    private Plazo plazoCorrecciones;
+    private Plazo plazoEntrega;
     private ArrayList<Persona> jurados;
     private ArrayList<Observacion> observaciones;
-
     public TrabajoGrado(int id, Modalidad modalidad, String tematica) {
         this.id = id;
         this.modalidad = modalidad;
@@ -33,15 +32,19 @@ public class TrabajoGrado {
         fechaDefensa = null;
         this.jurados = new ArrayList<Persona>();
         this.observaciones = new ArrayList<Observacion>();
-        this.plazoCorrecciones = null;
+        this.plazoEntrega = null;
     }    
 
-    public Plazo getPlazoCorrecciones() {
-        return plazoCorrecciones;
+    public TrabajoGrado(int id) {
+        this.id = id;
     }
 
-    public void setPlazoCorrecciones(Plazo plazoCorrecciones) {
-        this.plazoCorrecciones = plazoCorrecciones;
+    public Plazo getPlazoEntrega() {
+        return plazoEntrega;
+    }
+
+    public void setPlazoEntrega(Plazo plazoCorrecciones) {
+        this.plazoEntrega = plazoCorrecciones;
     }
 
     public ArrayList<Observacion> getObservaciones() {

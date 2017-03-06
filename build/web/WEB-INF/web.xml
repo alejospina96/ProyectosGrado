@@ -37,16 +37,28 @@
         <servlet-class>controllers.ListaTrabajosVencerServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PrepararBuscarTrabajosJuradoServlet</servlet-name>
-        <servlet-class>controllers.PrepararBuscarTrabajosJuradoServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AgregarEstudianteServlet</servlet-name>
         <servlet-class>controllers.AgregarEstudianteServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegistrarPropuestaServlet</servlet-name>
         <servlet-class>controllers.RegistrarPropuestaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EntregarTrabajoGradoServlet</servlet-name>
+        <servlet-class>controllers.EntregarTrabajoGradoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SeleccionEstadoPropuestaServlet</servlet-name>
+        <servlet-class>controllers.SeleccionEstadoPropuestaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListaTrabajosJuradoServlet</servlet-name>
+        <servlet-class>controllers.ListaTrabajosJuradoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SeleccionJuradoServlet</servlet-name>
+        <servlet-class>controllers.SeleccionJuradoServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PrepararAgregarEstudianteServlet</servlet-name>
@@ -85,16 +97,28 @@
         <url-pattern>/ListaTrabajosVencer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PrepararBuscarTrabajosJuradoServlet</servlet-name>
-        <url-pattern>/PrepararBuscarTrabajosJurado</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AgregarEstudianteServlet</servlet-name>
         <url-pattern>/AgregarEstudiante</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegistrarPropuestaServlet</servlet-name>
         <url-pattern>/RegistrarPropuesta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EntregarTrabajoGradoServlet</servlet-name>
+        <url-pattern>/EntregarTrabajoGrado</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SeleccionEstadoPropuestaServlet</servlet-name>
+        <url-pattern>/SeleccionEstadoPropuesta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListaTrabajosJuradoServlet</servlet-name>
+        <url-pattern>/ListaTrabajosJurado</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SeleccionJuradoServlet</servlet-name>
+        <url-pattern>/SeleccionJurado</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

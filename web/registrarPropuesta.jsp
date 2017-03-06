@@ -11,10 +11,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Nueva Popuesta</title>
+        <title>Nueva Popuesta</title>        
     </head>
     <body>
         <jsp:include page="navbarEstudiante.jsp"/>
+        <script src="js/registrarPropuesta.js" type="text/javascript"></script>
         <form class="form-horizontal form-center" action="RegistrarPropuesta" method="POST">
             <h1 align="center">Registrar una nueva propuesta</h1>
             <br/>

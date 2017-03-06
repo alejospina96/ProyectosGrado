@@ -38,6 +38,24 @@ public class Servicios {
         return conexion.executeUpdateStatement(sqlAgregar);
     }
 
+    public int actualizarTrabajoGrado(TrabajoGrado t) {
+        String sqlActualizar = "UPDATE trabajo_grado SET ";
+        if (t.getArchivo() != null) {
+            sqlActualizar += " tg_archivo='" + t.getArchivo().getName() + "',";
+        }
+        if (t.getEstado() != null) {
+            sqlActualizar += " tg_concepto_estado=" + t.getEstado().getId() + ",";
+        }
+        if (t.getFechaDefensa() != null) {
+            sqlActualizar += " fecha_defensa='" + t.getFechaDefensa() + "',";
+        }
+        sqlActualizar = sqlActualizar.substring(0, sqlActualizar.length() - 1);
+        sqlActualizar += " WHERE tg_id=" + t.getId();
+
+        System.out.println(sqlActualizar);
+        return conexion.executeUpdateStatement(sqlActualizar);
+    }
+
     public int agregarEstudiante(Estudiante e) {
         int i = agregarPersona(e.getPersona());
         if (i > 0) {
@@ -79,7 +97,7 @@ public class Servicios {
     public int agregarTrabajo(TrabajoGrado t) throws ErrorException {
         String sqlAgregar = "INSERT INTO trabajo_grado(tg_modalidad, tg_tematica) VALUES("
                 + "" + t.getModalidad().getId() + ","
-                + "'" + t.getTematica() + "'"
+                + "'" + t.getTematica().toUpperCase() + "'"
                 + ")";
         System.out.println(sqlAgregar);
         return conexion.executeUpdateStatement(sqlAgregar);
@@ -105,39 +123,52 @@ public class Servicios {
         }
         return i;
     }
-    public int estudiantesProponer(Propuesta p)throws ErrorException{
+
+    public int estudiantesProponer(Propuesta p) throws ErrorException {
         ArrayList<Estudiante> estudiantes = p.getEstudiantes();
         int i = 0;
         for (Estudiante estudiante : estudiantes) {
             String sqlAgregar = "INSERT INTO estudiante_propuesta VALUES("
                     + "" + estudiante.getCodigo() + ","
-                    + "" + p.getTrabajo().getId() 
+                    + "" + p.getTrabajo().getId()
                     + ")";
             System.out.println(sqlAgregar);
             i = conexion.executeUpdateStatement(sqlAgregar);
-            if(i<=0){
+            if (i <= 0) {
                 deleteEstudiantesPropuestos(p);
                 break;
             }
         }
         return i;
     }
-    public void deleteEstudiantesPropuestos(Propuesta p){
+
+    public void deleteEstudiantesPropuestos(Propuesta p) {
         String sqlBorrar = "DELETE FROM trabajo_grado WHERE ep_trabajo_propuesto=" + p.getTrabajo().getId();
         conexion.executeUpdateStatement(sqlBorrar);
     }
+
     public void deleteTrabajo(TrabajoGrado t) {
         String sqlBorrar = "DELETE FROM trabajo_grado WHERE tg_id=" + t.getId();
         conexion.executeUpdateStatement(sqlBorrar);
     }
 
     public ResultSet listPropuestasPorVencerse() {
-        String sqlLista = "SELECT propuesta.* "
-                + "FROM propuesta "
-                + "INNER JOIN estado_propuesta ON propuesta_concepto_estado = ep_id "
-                + "INNER JOIN plazo ON plazo_id = propuesta_plazo_correcciones "
-                + "WHERE plazo_fecha_inicio > DATE_SUB(NOW(), INTERVAL 60 DAY) "
-                + "AND ep_id = 2 "
+        String sqlLista = "select `universidad`.`trabajo_grado`.`tg_id` AS `trabajo`,\n"
+                + "`universidad`.`propuesta`.`propuesta_fecha` AS `fecha`,\n"
+                + "`universidad`.`modalidad_trabajo`.`modalidad_descripcion` AS `descripcion`,\n"
+                + "`universidad`.`trabajo_grado`.`tg_tematica` AS `tematica`,\n"
+                + "`universidad`.`estudiante_propuesta`.`ep_estudiante` AS `estudiante`,\n"
+                + "`universidad`.`estado_propuesta`.`ep_descripcion` AS `estado`,\n"
+                + "`universidad`.`plazo`.`plazo_fecha_fin` AS `plazo_correcciones`,\n"
+                + "`universidad`.`estado_propuesta`.`ep_id` AS `id_estado` \n"
+                + "FROM propuesta \n"
+                + "INNER JOIN trabajo_grado ON propuesta.propuesta_trabajo=trabajo_grado.tg_id\n"
+                + "INNER JOIN modalidad_trabajo ON trabajo_grado.tg_modalidad = modalidad_trabajo.modalidad_id\n"
+                + "INNER JOIN estudiante_propuesta ON propuesta.propuesta_trabajo=estudiante_propuesta.ep_trabajo_propuesto\n"
+                + "INNER JOIN estado_propuesta ON propuesta_concepto_estado = ep_id \n"
+                + "LEFT JOIN plazo ON plazo_id = propuesta.propuesta_plazo_correcciones \n"
+                + "WHERE plazo_fecha_inicio > DATE_SUB(NOW(), INTERVAL 60 DAY) \n"
+                + "AND ep_id = 2 \n"
                 + "ORDER BY plazo_fecha_fin";
         return conexion.executeQueryStatement(sqlLista);
     }
@@ -153,6 +184,7 @@ public class Servicios {
                 + "AND epg_id = 2 "
                 + "AND ep_id = 3 "
                 + "ORDER BY plazo_fecha_fin";
+        System.out.println(sqlLista);
         return conexion.executeQueryStatement(sqlLista);
     }
 
@@ -167,22 +199,34 @@ public class Servicios {
     }
 
     public ResultSet listTrabajosGradoPorJurado(Long identificacionJurado) {
-        String sqlLista = "SELECT * FROM jurado_trabajo_grado WHERE jtg_persona = " + identificacionJurado;
+        String sqlLista = "select `universidad`.`trabajo_grado`.`tg_id` AS `id`, "
+                + "`universidad`.`trabajo_grado`.`tg_tematica` AS `tematica`, "
+                + "`universidad`.`modalidad_trabajo`.`modalidad_descripcion` AS `modalidad`, "
+                + "`universidad`.`estado_trabajo_grado`.`epg_descripcion` AS `estado`, "
+                + "`universidad`.`trabajo_grado`.`fecha_defensa` AS `fecha_defensa`, "
+                + "`universidad`.`plazo`.`plazo_fecha_fin` AS `plazo_entrega`, "
+                + "`universidad`.`trabajo_grado`.`tg_concepto_estado` AS `id_estado` "
+                + "FROM trabajo_grado "
+                + "INNER JOIN jurado_trabajo_grado on jurado_trabajo_grado.jtg_trabajo_grado=tg_id "
+                + "INNER JOIN modalidad_trabajo on trabajo_grado.tg_modalidad = modalidad_id "
+                + "INNER JOIN estado_trabajo_grado on trabajo_grado.tg_concepto_estado = epg_id "
+                + "LEFT JOIN plazo on trabajo_grado.tg_plazo_entrega = plazo.plazo_id "
+                + "WHERE jtg_persona =" + identificacionJurado;
         return conexion.executeQueryStatement(sqlLista);
     }
 
     public ResultSet listPropuestas(int idEstado) {
-        String sqlLista = "SELECT * FROM modalidad_trabajo WHERE propuesta_concepto_estado = " + idEstado;
+        String sqlLista = "SELECT * FROM `v_propuestas` WHERE id_estado=" + idEstado;
         return conexion.executeQueryStatement(sqlLista);
     }
 
     public ResultSet listTrabajosGradoVigentes() {
-        String sqlLista = "SELECT * FROM trabajo_grado WHERE tg_concepto_estado = 2 OR tg_concepto_estado = 7";
+        String sqlLista = "SELECT * FROM v_trabajos_grado WHERE id_estado = 5 OR id_estado = 2";
         return conexion.executeQueryStatement(sqlLista);
     }
 
     public ResultSet listPropuestas() {
-        String sqlLista = "SELECT * FROM propuesta WHERE 1";
+        String sqlLista = "SELECT * FROM `v_propuestas` ";
         return conexion.executeQueryStatement(sqlLista);
     }
 

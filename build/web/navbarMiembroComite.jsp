@@ -26,7 +26,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="ListaPropuestas">Ver propuestas registradas</a></li>
                                 <li><a href="ListaPropuestasVencer">Ver propuestas por vencer</a></li>
-                                <li><a href="ListaPropuestasEstado">Buscar propuestas por estado</a></li>
+                                <li><a href="SeleccionEstadoPropuesta">Buscar propuestas por estado</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -34,7 +34,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="ListaTrabajosVigentes">Ver trabajos vigentes</a></li>
                                 <li><a href="ListaTrabajosVencer">Ver trabajos por vencer</a></li>
-                                <li><a href="PrepararBuscarTrabajosJurado">Buscar propuestas por jurado</a></li>
+                                <li><a href="SeleccionJurado">Buscar propuestas por jurado</a></li>
                             </ul>
                         </li>
                     </ul>

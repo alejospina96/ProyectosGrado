@@ -13,6 +13,10 @@ public class EstadoTrabajoGrado {
     private int id;
     private String descripcion;
 
+    public EstadoTrabajoGrado(int id) {
+        this.id = id;
+    }
+
     public EstadoTrabajoGrado(int id, String descripcion) {
         this.id = id;
         this.descripcion = descripcion;

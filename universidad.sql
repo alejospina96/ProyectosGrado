@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2017 at 06:43 PM
+-- Generation Time: Mar 05, 2017 at 09:51 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `universidad`
 --
-CREATE DATABASE IF NOT EXISTS `universidad` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
-USE `universidad`;
 
 -- --------------------------------------------------------
 
@@ -131,6 +129,7 @@ CREATE TABLE `estudiante_propuesta` (
 
 INSERT INTO `estudiante_propuesta` (`ep_estudiante`, `ep_trabajo_propuesto`) VALUES
 (2220141003, 5),
+(2220141003, 6),
 (2220141020, 5);
 
 -- --------------------------------------------------------
@@ -176,6 +175,13 @@ CREATE TABLE `multa` (
   `id_multa` int(11) NOT NULL COMMENT 'Representa el id de la multa',
   `valor_multa` double NOT NULL COMMENT 'Representa el valor de la multa en cop'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Almacena la informacion de las multas';
+
+--
+-- Dumping data for table `multa`
+--
+
+INSERT INTO `multa` (`id_multa`, `valor_multa`) VALUES
+(1, 5000);
 
 -- --------------------------------------------------------
 
@@ -236,6 +242,13 @@ CREATE TABLE `plazo` (
   `plazo_multa` int(11) NOT NULL COMMENT 'Representa la multa acarreada al no cumplir el plazo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Almacena los plazos dados para las diferentes actividades';
 
+--
+-- Dumping data for table `plazo`
+--
+
+INSERT INTO `plazo` (`plazo_id`, `plazo_fecha_inicio`, `plazo_fecha_fin`, `plazo_concepto`, `plazo_multa`) VALUES
+(2, '2017-03-05', '2017-03-23', 2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -276,7 +289,8 @@ CREATE TABLE `propuesta` (
 --
 
 INSERT INTO `propuesta` (`propuesta_trabajo`, `propuesta_fecha`, `propuesta_archivo`, `propuesta_concepto_estado`, `propuesta_plazo_correcciones`) VALUES
-(5, '2017-03-05', 'Administracion_14_ed_-_Harold_Koontz_Wei.pdf', 1, NULL);
+(5, '2017-03-05', 'Administracion_14_ed_-_Harold_Koontz_Wei.pdf', 1, NULL),
+(6, '2017-03-05', 'Caso de Estudio - Proyecto de Asignatura.pdf', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -312,9 +326,33 @@ CREATE TABLE `trabajo_grado` (
 --
 
 INSERT INTO `trabajo_grado` (`tg_id`, `tg_modalidad`, `tg_tematica`, `tg_concepto_estado`, `tg_archivo`, `fecha_defensa`) VALUES
-(2, 1, 'null', 1, NULL, NULL),
-(4, 1, 'Tematica cool', 1, NULL, NULL),
-(5, 1, 'Tematica cool', 1, NULL, NULL);
+(5, 1, 'TEMATICA COOL', 2, 'bootstrap.min.css', NULL),
+(6, 3, 'ASIST', 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_propuestas`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_propuestas` (
+`trabajo` int(11)
+,`fecha` date
+,`descripcion` varchar(30)
+,`tematica` varchar(50)
+,`estudiante` bigint(20)
+,`estado` varchar(30)
+,`plazo_correcciones` date
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_propuestas`
+--
+DROP TABLE IF EXISTS `v_propuestas`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_propuestas`  AS  select `trabajo_grado`.`tg_id` AS `trabajo`,`propuesta`.`propuesta_fecha` AS `fecha`,`modalidad_trabajo`.`modalidad_descripcion` AS `descripcion`,`trabajo_grado`.`tg_tematica` AS `tematica`,`estudiante_propuesta`.`ep_estudiante` AS `estudiante`,`estado_propuesta`.`ep_descripcion` AS `estado`,`plazo`.`plazo_fecha_fin` AS `plazo_correcciones` from (((((`propuesta` join `trabajo_grado` on((`trabajo_grado`.`tg_id` = `propuesta`.`propuesta_trabajo`))) join `modalidad_trabajo` on((`trabajo_grado`.`tg_modalidad` = `modalidad_trabajo`.`modalidad_id`))) join `estudiante_propuesta` on((`estudiante_propuesta`.`ep_trabajo_propuesto` = `trabajo_grado`.`tg_id`))) join `estado_propuesta` on((`estado_propuesta`.`ep_id` = `propuesta`.`propuesta_concepto_estado`))) left join `plazo` on((`plazo`.`plazo_id` = `propuesta`.`propuesta_plazo_correcciones`))) ;
 
 --
 -- Indexes for dumped tables
@@ -455,7 +493,7 @@ ALTER TABLE `modalidad_trabajo`
 -- AUTO_INCREMENT for table `multa`
 --
 ALTER TABLE `multa`
-  MODIFY `id_multa` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Representa el id de la multa';
+  MODIFY `id_multa` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Representa el id de la multa', AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `observacion`
 --
@@ -465,7 +503,7 @@ ALTER TABLE `observacion`
 -- AUTO_INCREMENT for table `plazo`
 --
 ALTER TABLE `plazo`
-  MODIFY `plazo_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Representa el id del plazo';
+  MODIFY `plazo_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Representa el id del plazo', AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `prorroga`
 --
@@ -475,7 +513,7 @@ ALTER TABLE `prorroga`
 -- AUTO_INCREMENT for table `trabajo_grado`
 --
 ALTER TABLE `trabajo_grado`
-  MODIFY `tg_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Representa el id de un trabajo de grado', AUTO_INCREMENT=6;
+  MODIFY `tg_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Representa el id de un trabajo de grado', AUTO_INCREMENT=7;
 --
 -- Constraints for dumped tables
 --
@@ -530,91 +568,6 @@ ALTER TABLE `prorroga`
 ALTER TABLE `trabajo_grado`
   ADD CONSTRAINT `fk_concepto_trabajo` FOREIGN KEY (`tg_concepto_estado`) REFERENCES `estado_trabajo_grado` (`epg_id`),
   ADD CONSTRAINT `fk_modalidad` FOREIGN KEY (`tg_modalidad`) REFERENCES `modalidad_trabajo` (`modalidad_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-
---
--- Metadata
---
-USE `phpmyadmin`;
-
---
--- Metadata for table concepto_plazo
---
-
---
--- Metadata for table estado_propuesta
---
-
---
--- Metadata for table estado_trabajo_grado
---
-
---
--- Metadata for table estudiante
---
-
---
--- Metadata for table estudiante_propuesta
---
-
---
--- Metadata for table jurado_trabajo_grado
---
-
---
--- Metadata for table modalidad_trabajo
---
-
---
--- Metadata for table multa
---
-
---
--- Metadata for table observacion
---
-
---
--- Dumping data for table `pma__tracking`
---
-
-INSERT INTO `pma__tracking` (`db_name`, `table_name`, `version`, `date_created`, `date_updated`, `schema_snapshot`, `schema_sql`, `data_sql`, `tracking`, `tracking_active`) VALUES
-('universidad', 'observacion', 1, '2017-03-04 03:38:02', '2017-03-04 03:43:03', 'a:2:{s:7:\"COLUMNS\";a:3:{i:0;a:8:{s:5:\"Field\";s:6:\"opg_id\";s:4:\"Type\";s:7:\"int(11)\";s:9:\"Collation\";N;s:4:\"Null\";s:2:\"NO\";s:3:\"Key\";s:3:\"PRI\";s:7:\"Default\";N;s:5:\"Extra\";s:14:\"auto_increment\";s:7:\"Comment\";s:34:\"Representa el id de la observacion\";}i:1;a:8:{s:5:\"Field\";s:15:\"opg_observacion\";s:4:\"Type\";s:4:\"text\";s:9:\"Collation\";s:8:\"utf8_bin\";s:4:\"Null\";s:2:\"NO\";s:3:\"Key\";s:0:\"\";s:7:\"Default\";N;s:5:\"Extra\";s:0:\"\";s:7:\"Comment\";s:25:\"Representa la observacion\";}i:2;a:8:{s:5:\"Field\";s:11:\"opg_trabajo\";s:4:\"Type\";s:7:\"int(11)\";s:9:\"Collation\";N;s:4:\"Null\";s:2:\"NO\";s:3:\"Key\";s:0:\"\";s:7:\"Default\";N;s:5:\"Extra\";s:0:\"\";s:7:\"Comment\";s:53:\"Representa el trabajo al que se le hace laobservacion\";}}s:7:\"INDEXES\";a:1:{i:0;a:13:{s:5:\"Table\";s:11:\"observacion\";s:10:\"Non_unique\";s:1:\"0\";s:8:\"Key_name\";s:7:\"PRIMARY\";s:12:\"Seq_in_index\";s:1:\"1\";s:11:\"Column_name\";s:6:\"opg_id\";s:9:\"Collation\";s:1:\"A\";s:11:\"Cardinality\";s:1:\"0\";s:8:\"Sub_part\";N;s:6:\"Packed\";N;s:4:\"Null\";s:0:\"\";s:10:\"Index_type\";s:5:\"BTREE\";s:7:\"Comment\";s:0:\"\";s:13:\"Index_comment\";s:0:\"\";}}}', '# log 2017-03-04 03:38:02 root\nDROP TABLE IF EXISTS `observacion`;\n# log 2017-03-04 03:38:02 root\n\nCREATE TABLE `observacion` (\n  `opg_id` int(11) NOT NULL COMMENT \'Representa el id de la observacion\',\n  `opg_observacion` text COLLATE utf8_bin NOT NULL COMMENT \'Representa la observacion\',\n  `opg_trabajo` int(11) NOT NULL COMMENT \'Representa el trabajo al que se le hace laobservacion\'\n) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT=\'Almacena las observaciones hechas a los proyectos de grado\' ROW_FORMAT=COMPACT;\n\n# log 2017-03-04 03:41:04 root\nALTER TABLE `observacion`  ADD `opg_propuesta` INT NOT NULL COMMENT \'Representa la propuesta a la que se le hace la observacion\'  AFTER `opg_trabajo`;\n# log 2017-03-04 03:42:14 root\nALTER TABLE `observacion` ADD  CONSTRAINT `fk_obs_trabajo_grado` FOREIGN KEY (`opg_trabajo`) REFERENCES `trabajo_grado`(`tg_id`) ON DELETE CASCADE ON UPDATE CASCADE;\n# log 2017-03-04 03:42:17 root\nALTER TABLE `observacion` ADD  CONSTRAINT `fk_obs_propuesta` FOREIGN KEY (`opg_propuesta`) REFERENCES `propuesta`(`propuesta_trabajo`) ON DELETE CASCADE ON UPDATE CASCADE;\n# log 2017-03-04 03:42:53 root\nALTER TABLE `observacion` CHANGE `opg_trabajo` `opg_trabajo` INT(11) NULL DEFAULT NULL COMMENT \'Representa el trabajo al que se le hace laobservacion\';\n# log 2017-03-04 03:43:03 root\nALTER TABLE `observacion` CHANGE `opg_propuesta` `opg_propuesta` INT(11) NULL DEFAULT NULL COMMENT \'Representa la propuesta a la que se le hace la observacion\';', '\n', 'UPDATE,INSERT,DELETE,TRUNCATE,CREATE TABLE,ALTER TABLE,RENAME TABLE,DROP TABLE,CREATE INDEX,DROP INDEX', 1);
-
---
--- Metadata for table persona
---
-
---
--- Metadata for table plazo
---
-
---
--- Metadata for table programa
---
-
---
--- Metadata for table propuesta
---
-
---
--- Metadata for table prorroga
---
-
---
--- Metadata for table trabajo_grado
---
-
---
--- Metadata for database universidad
---
-
---
--- Dumping data for table `pma__relation`
---
-
-INSERT INTO `pma__relation` (`master_db`, `master_table`, `master_field`, `foreign_db`, `foreign_table`, `foreign_field`) VALUES
-('universidad', 'estudiante', 'estudiante_persona', 'universidad', 'persona', 'persona_identificacion'),
-('universidad', 'estudiante', 'estudiante_programa', 'universidad', 'programa', 'programa_codigo');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

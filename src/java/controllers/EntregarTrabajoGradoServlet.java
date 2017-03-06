@@ -5,19 +5,21 @@
  */
 package controllers;
 
+import java.io.File;
 import java.io.IOException;
-import java.sql.ResultSet;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.EstadoTrabajoGrado;
+import modelo.TrabajoGrado;
 
 /**
  *
  * @author daniel
  */
-public class PrepararRegistrarTrabajoGradoServlet extends HttpServlet {
+public class EntregarTrabajoGradoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,8 +32,19 @@ public class PrepararRegistrarTrabajoGradoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("entregarTrabajo.jsp");
+        try {
+            int trabajo = Integer.parseInt(request.getParameter("txtTrabajo"));
+            String archivo = request.getParameter("fileTrabajo");
+            TrabajoGrado  t = new TrabajoGrado(trabajo);
+            t.setArchivo(new File(archivo));
+            t.setEstado(new EstadoTrabajoGrado(2));
+            Servicios s = new Servicios();
+            int agrego = s.actualizarTrabajoGrado(t);
+            request.setAttribute("agrego", agrego);
+        } catch (Exception e) {
+
+        }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("PrepararRegistrarTrabajoGrado");
         dispatcher.forward(request, response);
     }
 

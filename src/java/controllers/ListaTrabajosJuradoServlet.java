@@ -6,6 +6,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author daniel
  */
-public class PrepararRegistrarTrabajoGradoServlet extends HttpServlet {
+public class ListaTrabajosJuradoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,8 +31,10 @@ public class PrepararRegistrarTrabajoGradoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("entregarTrabajo.jsp");
+        Servicios s = new Servicios();
+        ResultSet listTrabajosJurado = s.listTrabajosGradoPorJurado(Long.parseLong(request.getParameter("selJurado")));
+        request.setAttribute("listTrabajosVigentes", listTrabajosJurado);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("listaTrabajosGrado.jsp");
         dispatcher.forward(request, response);
     }
 

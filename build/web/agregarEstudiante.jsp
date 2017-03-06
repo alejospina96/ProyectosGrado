@@ -15,7 +15,7 @@
         <title>Nuevo Estudiante</title>
     </head>
     <body>
-        <jsp:include page="navbarEstudiante.jsp"/>
+        <jsp:include page="navbarMiembroComite.jsp"/>
         <form id="formAgregarEstudiante" class="form-horizontal form-center" action="AgregarEstudiante" method="POST"> 
             <h1 align="center">Agregar un nuevo estudiante</h1>
             <br/>
