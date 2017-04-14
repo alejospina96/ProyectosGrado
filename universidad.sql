@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2017 at 05:25 PM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- Generation Time: Apr 15, 2017 at 12:59 AM
+-- Server version: 10.1.18-MariaDB
+-- PHP Version: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `universidad`
 --
+CREATE DATABASE IF NOT EXISTS `universidad` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `universidad`;
 
 -- --------------------------------------------------------
 
@@ -101,8 +103,6 @@ CREATE TABLE `estudiante` (
 --
 
 INSERT INTO `estudiante` (`estudiante_codigo`, `estudiante_persona`, `estudiante_programa`) VALUES
-(1234, 1234, '23'),
-(12345, 123456, '35'),
 (2220141003, 1110577732, '22'),
 (2220141020, 1110563494, '22'),
 (3520151002, 19456629, '35');
@@ -123,12 +123,12 @@ CREATE TABLE `estudiante_propuesta` (
 --
 
 INSERT INTO `estudiante_propuesta` (`ep_estudiante`, `ep_trabajo_propuesto`) VALUES
-(1234, 10),
-(12345, 9),
 (2220141003, 5),
 (2220141003, 6),
 (2220141003, 11),
-(2220141020, 5);
+(2220141003, 21),
+(2220141020, 5),
+(2220141020, 22);
 
 -- --------------------------------------------------------
 
@@ -210,10 +210,10 @@ CREATE TABLE `observacion` (
 CREATE TABLE `persona` (
   `persona_identificacion` bigint(20) NOT NULL COMMENT 'Representa el numero de identificacion de una persona',
   `persona_p_nombre` varchar(15) COLLATE utf8_bin NOT NULL COMMENT 'Representa el primer nombre de una persona',
-  `persona_s_nombre` varchar(15) COLLATE utf8_bin DEFAULT NULL COMMENT 'Representa el segundo nombre de una persona',
+  `persona_s_nombre` varchar(15) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'Representa el segundo nombre de una persona',
   `persona_p_apellido` varchar(15) COLLATE utf8_bin NOT NULL COMMENT 'Representa el primer apellido de una persona',
-  `persona_s_apellido` varchar(15) COLLATE utf8_bin NOT NULL COMMENT 'Representa el segundo apellido de una persona',
-  `persona_email` varchar(40) COLLATE utf8_bin DEFAULT NULL COMMENT 'Representa el email de una persona',
+  `persona_s_apellido` varchar(15) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'Representa el segundo apellido de una persona',
+  `persona_email` varchar(40) COLLATE utf8_bin NOT NULL COMMENT 'Representa el email de una persona',
   `persona_es_jurado` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Define si la persona es jurado'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Almacena la informacion de una persona' ROW_FORMAT=COMPACT;
 
@@ -222,10 +222,13 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`persona_identificacion`, `persona_p_nombre`, `persona_s_nombre`, `persona_p_apellido`, `persona_s_apellido`, `persona_email`, `persona_es_jurado`) VALUES
-(1234, 'Estudiante', '(NULL)', 'De ', 'Prueba', 'edp@edp.com', 0),
-(123456, 'ddd', '(NULL)', 'dsd', 'asda', 'asd@hotmail.com', 0),
+(1233, 'Pepito', '', 'Perez', '', 'pepito@perez.com', 0),
+(1234, 'Estudiante', '', 'De ', 'Prueba', 'edp@edp.com', 0),
+(6666, 'Satan', 'Is', 'Here', '', 'princesita@satanmail.com', 0),
+(22222, 'Juan', '', 'Gomez', '', 'juan@gomez.com', 0),
+(123456, 'ddd', '', 'dsd', 'asda', 'asd@hotmail.com', 0),
 (19456629, 'HONORIO', 'ANTONIO', 'FLOREZ', 'HOYOS', 'HAFLOREZ23@HOTMAIL.COM', 1),
-(36182958, 'NIYIME', NULL, 'OSPINA', 'CARTAGENA', 'NOC661@HOTMAIL.COM', 1),
+(36182958, 'NIYIME', '', 'OSPINA', 'CARTAGENA', 'NOC661@HOTMAIL.COM', 1),
 (1110563494, 'CRISTIAN', 'HERLEY', 'GARZON', 'MORENO', 'CRISHEGAR1495@HOTMAIL.COM', 0),
 (1110577732, 'DANIEL', 'ALEJANDRO', 'FLOREZ', 'OSPINA', 'ALEJO_OSPINA96@HOTMAIL.COM', 0);
 
@@ -240,7 +243,7 @@ CREATE TABLE `plazo` (
   `plazo_fecha_inicio` date NOT NULL COMMENT 'Representa la fecha de inicio del plazo',
   `plazo_fecha_fin` date NOT NULL COMMENT 'Representa la fecha final del plzao',
   `plazo_concepto` int(11) NOT NULL COMMENT 'Representa el concepto del plazo',
-  `plazo_multa` int(11) NOT NULL COMMENT 'Representa la multa acarreada al no cumplir el plazo'
+  `plazo_multa` int(11) DEFAULT NULL COMMENT 'Representa la multa acarreada al no cumplir el plazo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Almacena los plazos dados para las diferentes actividades';
 
 --
@@ -283,6 +286,7 @@ INSERT INTO `programa` (`programa_codigo`, `programa_abreviatura`, `programa_nom
 CREATE TABLE `propuesta` (
   `propuesta_trabajo` int(11) NOT NULL COMMENT 'Representa el trabajo de grado propuesto',
   `propuesta_fecha` date NOT NULL COMMENT 'Representa la fecha en que se realizo la propuesta',
+  `propuesta_fecha_entrega` date DEFAULT NULL,
   `propuesta_archivo` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT 'Representa la ruta del archivo que se carga',
   `propuesta_concepto_estado` int(11) NOT NULL DEFAULT '1' COMMENT 'Define si la propuesta se aprueba o no',
   `propuesta_plazo_correcciones` int(11) DEFAULT NULL COMMENT 'Representa el plazo para presentar correcciones'
@@ -292,12 +296,14 @@ CREATE TABLE `propuesta` (
 -- Dumping data for table `propuesta`
 --
 
-INSERT INTO `propuesta` (`propuesta_trabajo`, `propuesta_fecha`, `propuesta_archivo`, `propuesta_concepto_estado`, `propuesta_plazo_correcciones`) VALUES
-(5, '2017-03-05', 'Administracion_14_ed_-_Harold_Koontz_Wei.pdf', 1, NULL),
-(6, '2017-03-05', 'Caso de Estudio - Proyecto de Asignatura.pdf', 2, 2),
-(9, '2017-03-05', 'appi.zip', 3, NULL),
-(10, '2017-03-05', 'Cuentas.txt', 3, 4),
-(11, '2017-03-06', '16901474_10211983016075812_715473061_n.jpg', 1, NULL);
+INSERT INTO `propuesta` (`propuesta_trabajo`, `propuesta_fecha`, `propuesta_fecha_entrega`, `propuesta_archivo`, `propuesta_concepto_estado`, `propuesta_plazo_correcciones`) VALUES
+(5, '2017-03-05', NULL, 'Administracion_14_ed_-_Harold_Koontz_Wei.pdf', 1, NULL),
+(6, '2017-03-05', NULL, 'Caso de Estudio - Proyecto de Asignatura.pdf', 2, 2),
+(9, '2017-03-05', NULL, 'appi.zip', 3, NULL),
+(10, '2017-03-05', NULL, 'Cuentas.txt', 3, 4),
+(11, '2017-03-06', NULL, '16901474_10211983016075812_715473061_n.jpg', 1, NULL),
+(21, '2017-03-29', NULL, 'archivo.txt', 1, NULL),
+(22, '2017-03-29', NULL, 'codigo=2220141020 null.txt', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -325,6 +331,7 @@ CREATE TABLE `trabajo_grado` (
   `tg_tematica` varchar(50) COLLATE utf8_bin NOT NULL COMMENT 'Representa la tematica del trabajo de grado',
   `tg_concepto_estado` int(11) DEFAULT '1' COMMENT 'Representa el concepto del estado del trabajo de grado',
   `tg_archivo` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT 'Representa el archivo final de proyecto de grado',
+  `tg_fecha_entrega` date DEFAULT NULL COMMENT 'Describe la fecha en la que se entrego el trabajo',
   `fecha_defensa` date DEFAULT NULL COMMENT 'Representa la fecha de defensa del trabajo de grado',
   `tg_plazo_entrega` int(11) DEFAULT NULL COMMENT 'Representa el plazo para su entrega'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Almacena la informacion de un trabajo de grado';
@@ -333,18 +340,21 @@ CREATE TABLE `trabajo_grado` (
 -- Dumping data for table `trabajo_grado`
 --
 
-INSERT INTO `trabajo_grado` (`tg_id`, `tg_modalidad`, `tg_tematica`, `tg_concepto_estado`, `tg_archivo`, `fecha_defensa`, `tg_plazo_entrega`) VALUES
-(5, 1, 'TEMATICA COOL', 2, 'bootstrap.min.css', NULL, 3),
-(6, 3, 'ASIST', 1, NULL, NULL, NULL),
-(9, 4, 'VENTA DE COSAS', 2, NULL, NULL, 2),
-(10, 5, 'INVESTIGACION PRUEBA', 2, NULL, NULL, 5),
-(11, 2, 'HOLA SOY UNA MONOGRAFIA DE PYP', 2, 'Cuentas.txt', NULL, NULL);
+INSERT INTO `trabajo_grado` (`tg_id`, `tg_modalidad`, `tg_tematica`, `tg_concepto_estado`, `tg_archivo`, `tg_fecha_entrega`, `fecha_defensa`, `tg_plazo_entrega`) VALUES
+(5, 1, 'TEMATICA COOL', 2, 'bootstrap.min.css', NULL, NULL, 3),
+(6, 3, 'ASIST', 1, NULL, NULL, NULL, NULL),
+(9, 4, 'VENTA DE COSAS', 2, NULL, NULL, NULL, 2),
+(10, 5, 'INVESTIGACION PRUEBA', 2, NULL, NULL, NULL, 5),
+(11, 2, 'HOLA SOY UNA MONOGRAFIA DE PYP', 2, 'Cuentas.txt', NULL, NULL, NULL),
+(18, 4, 'COSASNUEVAS', 1, NULL, NULL, NULL, NULL),
+(20, 4, 'GG COSASDD', 1, NULL, NULL, NULL, NULL),
+(21, 1, 'KEVIN', 1, NULL, NULL, NULL, NULL),
+(22, 3, 'TEMATICA RARITA', 2, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
 -- Stand-in structure for view `v_propuestas`
--- (See below for the actual view)
 --
 CREATE TABLE `v_propuestas` (
 `trabajo` int(11)
@@ -362,7 +372,6 @@ CREATE TABLE `v_propuestas` (
 
 --
 -- Stand-in structure for view `v_trabajos_grado`
--- (See below for the actual view)
 --
 CREATE TABLE `v_trabajos_grado` (
 `id` int(11)
@@ -419,8 +428,10 @@ ALTER TABLE `estado_trabajo_grado`
 --
 ALTER TABLE `estudiante`
   ADD PRIMARY KEY (`estudiante_codigo`),
+  ADD UNIQUE KEY `estudiante_codigo` (`estudiante_codigo`),
   ADD KEY `fk_persona` (`estudiante_persona`),
-  ADD KEY `fk_programa` (`estudiante_programa`);
+  ADD KEY `fk_programa` (`estudiante_programa`),
+  ADD KEY `estudiante_persona` (`estudiante_persona`) USING BTREE;
 
 --
 -- Indexes for table `estudiante_propuesta`
@@ -469,6 +480,12 @@ ALTER TABLE `plazo`
   ADD PRIMARY KEY (`plazo_id`),
   ADD KEY `fk_concepto_plazo` (`plazo_concepto`),
   ADD KEY `fk_plazo_multa` (`plazo_multa`);
+
+--
+-- Indexes for table `programa`
+--
+ALTER TABLE `programa`
+  ADD PRIMARY KEY (`programa_codigo`);
 
 --
 -- Indexes for table `propuesta`
@@ -546,10 +563,17 @@ ALTER TABLE `prorroga`
 -- AUTO_INCREMENT for table `trabajo_grado`
 --
 ALTER TABLE `trabajo_grado`
-  MODIFY `tg_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Representa el id de un trabajo de grado', AUTO_INCREMENT=12;
+  MODIFY `tg_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Representa el id de un trabajo de grado', AUTO_INCREMENT=23;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `estudiante`
+--
+ALTER TABLE `estudiante`
+  ADD CONSTRAINT `fk_persona` FOREIGN KEY (`estudiante_persona`) REFERENCES `persona` (`persona_identificacion`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_programa` FOREIGN KEY (`estudiante_programa`) REFERENCES `programa` (`programa_codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `estudiante_propuesta`

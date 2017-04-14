@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Inicio</title>
+        <ui:include src="/templates/includes.xhtml"/>
+        <style>
+            form{
+                background-color: #343330;
+                position: absolute;
+                width: 100%;
+                bottom:  2%;
+            }
+            h1{
+                background-color: #343330;
+                text-align: right;
+            }           
+        </style>
+    </h:head>
+    <h:body>
+        <h1><span style="color:#fff;">Gesti&oacute;n de proyectos de grado.</span></h1>
+        <h:form style="">
+            <b:container >
+                <b:row>
+                    <b:column style="width: 100%">
+                        <b:button style="background-color: #343330;color:#fff; border-color: #343330;" iconAwesome ="graduation-cap" icon-size="3x"
+                                  value="Soy un estudiante" title="Click para ver cosas de estudiante" outcome="#{navigation.indexEstudiante}" />
+                        &nbsp;
+                        <b:button style="background-color: #343330; color:#fff; border-color: #343330;" iconAwesome ="search" icon-size="3x"
+                                  value="Soy un miembro del comité" title="Click para ver cosas de miembro de comite" outcome="#{navigation.indexMiembroComite}"/>
+                    </b:column>
+                </b:row>
+            </b:container>    
+        </h:form>
+    </h:body>
+</html>
+

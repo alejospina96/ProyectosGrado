@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Nueva propuesta</title>
+    </h:head>
+    <h:body>
+        <ui:include src="/templates/estudiante.xhtml"/>
+        <b:form onkeypress="return event.keyCode !== 13;" inline="true">
+            <b:container>
+                <b:panel style-class="panel-center" title="Datos de tu propuesta" collapsible="false">
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Modalidad:*"/>
+                        </b:column>
+                        <b:column medium-screen="7">
+                            <b:selectOneMenu required-message=" Selecciona una modalidad!" 
+                                             id="sel_modalidad" 
+                                             required="true">
+                                <f:selectItem itemLabel="Seleccione una opción" itemValue=""/>
+                                <f:selectItem itemLabel="Fiat" itemValue="1"/>
+                                <f:selectItem itemLabel="Honda" itemValue="2"/>
+                                <f:selectItem itemLabel="Opel" itemValue="3"/>
+                            </b:selectOneMenu>
+                            <h:message class="mensaje-error" for="sel_modalidad" />
+                        </b:column>
+                    </b:row>   
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Temática:*"/>
+                        </b:column>
+                        <b:column medium-screen="7">
+                            <b:inputText placeholder="De qué tratara tu proyecto en pocas palabras" 
+                                         required-message=" Ingresa una temática!" 
+                                         id="txt_tematica" 
+                                         required="true"/>
+                            <h:message class="mensaje-error" for="txt_tematica" />
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Sube tu archivo*"/>
+                        </b:column>
+                        <b:column medium-screen="7">
+                            <b:inputText required-message=" Sube tu propuesta!" 
+                                         id="file_propuesta" 
+                                         required="true"/>
+                            <h:message class="mensaje-error" for="file_propuesta" />
+                        </b:column>
+                    </b:row>
+                </b:panel>
+                <b:panel style-class="panel-center" title="Datos de los participantes" collapsible="false">
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Codigos:*" />
+                        </b:column>
+                        <b:column medium-screen="8">
+                            <b:inputText tags="true" 
+                                         tiny-screen="full-width"
+                                         placeholder='Enter para agregar'
+                                         render-label="true" 
+                                         required="true"
+                                         required-message=" Ingresa por lo menos un código!" 
+                                         id="txt_codigos"/>
+                            <h:message class="mensaje-error" for="txt_codigos" />
+                        </b:column>
+                    </b:row>                   
+                    <b:row>
+                        <center><b:commandButton update="@form" value="Enviar" look="primary"/></center>
+                    </b:row>
+                </b:panel>
+            </b:container>
+        </b:form>
+    </h:body>
+</html>

@@ -1,0 +1,32 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13-abr-2017, 15:24:03
+    Author     : daniel
+*/
+body{ 
+    background:  url("#{resource['img/coffe.gif']}") no-repeat center center fixed; 
+    background-size: cover;
+}
+.panel-center{
+    font-weight: bold;
+    width: 70%;
+    margin: 0 auto;
+    height: 100%;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+.mensaje-error{
+    color:red;
+    font-size: 80%;
+}
+.mensaje-success{
+    color:green;
+}
+.table-container{
+    background-color: #fff;
+    padding-top: 2%;
+}

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Nuevo Estudiante</title>
+    </h:head>
+    <h:body>
+        <ui:include src="/templates/miembro_comite.xhtml"/>
+
+        <b:form inline="true">
+            <b:container>
+                <b:panel style-class="panel-center" title="Datos personales" collapsible="false">
+
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Programa académico:*"/>
+                        </b:column>
+                        <b:column medium-screen="8">
+                            <br/>
+                            <b:selectOneMenu value="#{crearEstudianteBean.programa.programaCodigo}" id="sel_programa" required="true" required-message=" Selecciona un programa!">
+                                <f:selectItem itemLabel="Seleccione una opción" itemValue=""/>
+                                <f:selectItems value="#{listaProgramasBean.programas}" var="programa" itemValue="#{programa.programaCodigo}" itemLabel="#{programa.programaNombre}" />                                
+                            </b:selectOneMenu>
+                            <h:message class="mensaje-error" for="sel_programa" />
+                        </b:column>
+                    </b:row>   
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Código:*"/>
+                        </b:column>
+                        <b:column medium-screen="8">
+                            <b:inputText id="txt_codigo" value="#{crearEstudianteBean.estudiante.estudianteCodigo}" requiredMessage=" Ingresa un codigo!" placeholder="Código de estudiante" required="true" />
+                            <h:message class="mensaje-error" for="txt_codigo" />
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Identificación:*" />
+                        </b:column>
+                        <b:column medium-screen="7">
+                            <b:inputText value="#{crearEstudianteBean.persona.personaIdentificacion}" id="txt_identificacion" required-message=" Ingresa una identificación!" placeholder="Número de identificación" required="true"/>
+                            <h:message class="mensaje-error" for="txt_identificacion" />
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Primer Nombre:*"/>
+                        </b:column>
+                        <b:column medium-screen="8">
+                            <br/>
+                            <b:inputText id="txt_p_nombre" value="#{crearEstudianteBean.persona.personaPNombre}" required-message=" Ingresa un nombre!" placeholder="Pepito" required="true"/>
+                            <h:message class="mensaje-error" for="txt_p_nombre" />
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Segundo Nombre:"/>
+                        </b:column>
+                        <b:column medium-screen="7">
+                            <b:inputText value="#{crearEstudianteBean.persona.personaSNombre}" placeholder="..."/>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Primer Apellido:*"/>
+                        </b:column>
+                        <b:column medium-screen="8">
+                            <b:inputText value="#{crearEstudianteBean.persona.personaPApellido}" required-message=" Ingresa un apellido!" id="txt_p_apellido" placeholder="Perez" required="true"/>
+                            <h:message class="mensaje-error" for="txt_p_apellido" />
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Segundo Apellido:"/>
+                        </b:column>
+                        <b:column medium-screen="8">
+                            <b:inputText value="#{crearEstudianteBean.persona.personaSApellido}" placeholder="..."/>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Email:"/>
+                        </b:column>
+                        <b:column medium-screen="8">
+                            <b:inputText value="#{crearEstudianteBean.persona.personaEmail}" required-message=" Ingresa un email!" id="txt_email" type="email" placeholder="pepito@perez.com" required="true"/>
+                            <h:message class="mensaje-error" for="txt_email" />
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <h:outputText styleClass="mensaje-error" value="#{crearEstudianteBean.error}"/>
+                        <h:outputText styleClass="mensaje-success" value="#{crearEstudianteBean.successMessage}"/>
+                    </b:row>
+                    <b:row>
+                        <center><b:commandButton update="@form" value="Agregar" look="primary" action="#{crearEstudianteBean.guardar}"/></center>
+                    </b:row>
+                </b:panel>
+            </b:container>
+        </b:form>
+    </h:body>
+</html>

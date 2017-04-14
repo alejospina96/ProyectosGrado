@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition>
+        <ui:include src="/templates/includes.xhtml"/>    
+        <h:body>        
+            <div>
+                <b:navBar style="margin-top: 2%;" brand="Inicio" brandHref="#{navigation.homePage}.xhtml" inverse="true">
+                    <b:navbarLinks pull="right">
+                        <b:dropMenu value="Estudiantes" iconAwesome="graduation-cap">
+                            <b:navLink value="Agregar" href="#{navigation.agregarEstudiante}.xhtml"></b:navLink>
+                            <b:navLink></b:navLink>
+                            <b:navLink value="Ver todos los estudiantes" href="#{navigation.mostrarEstudiantes}.xhtml"></b:navLink>
+                        </b:dropMenu>
+                        <b:dropMenu value="Jurados" iconAwesome="graduation-cap">
+                            <b:navLink value="Agregar" href="#"></b:navLink>
+                            <b:navLink></b:navLink>
+                            <b:navLink value="Consultar" href="#"></b:navLink>
+                        </b:dropMenu>
+                        <b:dropMenu value="Propuestas" iconAwesome="comment-o">
+                            <b:navLink value="Ver propuestas registradas" href="#"></b:navLink>
+                            <b:navLink></b:navLink>
+                            <b:navLink value="Buscar propuestas por estado" href="#"></b:navLink>
+                            <b:navLink></b:navLink>
+                            <b:navLink value="Ver propuestas proximo vencimiento" href="#"></b:navLink>
+                        </b:dropMenu>
+                        <b:dropMenu value="Trabajos de grado" iconAwesome="book" tooltip-position="left">
+                            <b:navLink value="Ver trabasjos vigentes" href="#"></b:navLink>
+                            <b:navLink></b:navLink>                            
+                            <b:navLink value="Buscar trabajos por jurado" href="#"></b:navLink>
+                            <b:navLink></b:navLink>
+                            <b:navLink value="Ver trabajos próximo vencimiento" href="#"></b:navLink>                            
+                        </b:dropMenu>
+                    </b:navbarLinks>
+                </b:navBar>
+            </div>
+        </h:body>
+    </ui:composition>
+</html>
