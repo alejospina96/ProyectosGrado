@@ -21,6 +21,7 @@ import entities.Persona;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -247,4 +248,21 @@ public class PersonaJpaController implements Serializable {
         }
     }
     
+    public List<Persona> findJuradosEntities() {
+        return findJuradosEntities(true, -1, -1);
+    }
+     
+     private List<Persona> findJuradosEntities(boolean all, int maxResults, int firstResult) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Persona> q = em.createNamedQuery("Persona.findJurados", Persona.class);
+            if (!all) {
+                q.setMaxResults(maxResults);
+                q.setFirstResult(firstResult);
+            }
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

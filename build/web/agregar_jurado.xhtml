@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width"/>
+    </h:head>
+
+    <h:body>
+        <ui:include src="/templates/miembro_comite.xhtml"/>
+        <b:container>
+            <b:panel class="panel-center" title="Datos del Jurado" collapsible="false">
+                <b:form>
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Identificacion:*"/>
+                        </b:column>
+                        <b:column medium-screen="8">
+                            <b:inputText value="#{crearJuradoBean.persona.personaIdentificacion}" required-message=" Ingrese una identificacion!" id="txt_identificacion" placeholder="El numero de la CC" required="true" />
+                            <h:message class="mensaje-error" for="txt_identificacion" />
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Primer Nombre:*"/>
+                        </b:column>
+                        <b:column medium-screen="8">
+                            <b:inputText value="#{crearJuradoBean.persona.personaPNombre}" required-message=" Ingrese un nombre!" id="txt_pnombre" placeholder="El primer Nombre Del Jurado" required="true" />
+                            <h:message class="mensaje-error" for="txt_pnombre" />
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Segundo Nombre:"/>
+                        </b:column>
+                        <b:column medium-screen="8">
+                            <b:inputText value="#{crearJuradoBean.persona.personaSNombre}"  id="txt_snombre" placeholder="El segundo Nombre Del Jurado" />                        
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Primer Apellido:*"/>
+                        </b:column>
+                        <b:column medium-screen="8">
+                            <b:inputText value="#{crearJuradoBean.persona.personaPApellido}" required-message=" Ingrese un Apellido!" id="txt_papellido" placeholder="El primer Apellido Del Jurado" required="true" />
+                            <h:message class="mensaje-error" for="txt_papellido" />
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Segundo Apellido:"/>
+                        </b:column>
+                        <b:column medium-screen="8">
+                            <b:inputText value="#{crearJuradoBean.persona.personaSApellido}"  id="txt_sapellido" placeholder="El segundo Apellido Del Jurado" />                        
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column medium-screen="4">
+                            <h:outputText value="Email:*"/>
+                        </b:column>
+                        <b:column medium-screen="8">
+                            <b:inputText value="#{crearJuradoBean.persona.personaEmail}" required-message="Ingrese un Email!" id="txt_email" placeholder="algo@algo.algo" required="true"/> 
+                            <h:message class="mensaje-error" for="txt_email" />
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <h:outputText styleClass="mensaje-error" value="#{crearJuradoBean.error}"/>
+                        <h:outputText styleClass="mensaje-success" value="#{crearJuradoBean.successMessage}"/>
+                    </b:row>
+                    <b:row>
+                        <center><b:commandButton update="@form" value="Agregar" look="primary" action="#{crearJuradoBean.guardar()}"/></center>
+                    </b:row>
+                </b:form>
+            </b:panel>
+        </b:container>
+    </h:body>
+</html>

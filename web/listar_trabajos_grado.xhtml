@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Lista Trabajos</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <ui:include src="/templates/miembro_comite.xhtml"/>
+        <b:container style-class="table-container">
+            <h1>Lista de Trabajos</h1>
+            <b:form>
+                <input type="hidden" name="validar_trabajo" id="validar_trabajo" value=""/>
+                <b:dataTable value="#{listarTrabajosBean.trabajos}" var="t" responsive="true"
+                             fixedHeader="true" id="trabajos_tablas">
+                    <b:dataTableColumn label="ID" value="#{t.tgId}"/>
+                    <b:dataTableColumn label="Tematica" value="#{t.tgTematica}"/>
+                    <b:dataTableColumn label="Modalidad" value="#{t.tgModalidad.modalidadDescripcion}"/>
+                    <b:dataTableColumn label="Estado" value="#{t.tgConceptoEstado.epgDescripcion}"/>
+                    <b:dataTableColumn label="Fecha Defensa" value="#{t.fechaDefensa}"/>
+                    <b:dataTableColumn label="Plazo de Entrega" value="#{t.tgPlazoEntrega.plazoFechaFin}"/>
+                </b:dataTable>
+            </b:form>
+        </b:container>
+    </h:body>
+</html>
