@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Lista Jurados</title>
+        <meta name="viewport" content="width=device-width"/>
+    </h:head>
+    <h:body>
+        <ui:include src="/templates/miembro_comite.xhtml"/>
+        <b:container style-class="table-container">
+            <h1>Lista de Jurados</h1>
+            <b:form>
+                <input type="hidden" name="eliminar_jurado" id="jurado_eliminar" value=""/>
+                <h:outputLabel styleClass="mensaje-error" value="#{eliminarJuradoBean.error}"></h:outputLabel>
+                <h:outputLabel styleClass="mensaje-success" value="#{eliminarJuradoBean.success}"></h:outputLabel>
+                <b:dataTable value="#{listarJuradoBean.jurados}" var="j" fixedHeader="true" responsive="true" id="jurado_tablas">
+                    <b:dataTableColumn label= "Identificación" value="#{j.personaIdentificacion}" />
+                    <b:dataTableColumn label= "Primer Nombre" value="#{j.personaPNombre}" />
+                    <b:dataTableColumn label= "Segundo Nombre" value="#{j.personaSNombre}" />
+                    <b:dataTableColumn label= "Primer Apellido" value="#{j.personaPApellido}" />
+                    <b:dataTableColumn label= "Segundo Apellido" value="#{j.personaSApellido}" />
+                    <b:dataTableColumn label= "Email" value="#{j.personaEmail}" />
+                    <b:dataTableColumn label= "">
+                        <b:commandButton value="Eliminar" 
+                                         look="danger" 
+                                         iconAwesome="times"
+                                         onclick="setHiddenValue(#{j.personaIdentificacion})"
+                                         actionListener="#{eliminarJuradoBean.eliminar}">
+                        </b:commandButton>
+                    </b:dataTableColumn>
+
+                </b:dataTable>
+            </b:form>
+        </b:container>
+        <script>
+            function setHiddenValue(new_value) {
+                document.getElementById('jurado_eliminar').value = new_value;
+                //j_idt39tabla_estudiantes_wrapper.DataTable().destroy();
+            }
+        </script>
+    </h:body>
+</html>

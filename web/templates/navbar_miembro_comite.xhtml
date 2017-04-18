@@ -21,23 +21,23 @@ and open the template in the editor.
                             <b:navLink value="Ver todos los estudiantes" href="#{navigation.mostrarEstudiantes}.xhtml"></b:navLink>
                         </b:dropMenu>
                         <b:dropMenu value="Jurados" iconAwesome="graduation-cap">
-                            <b:navLink value="Agregar" href="#"></b:navLink>
+                            <b:navLink value="Agregar" href="#{navigation.agregarJurado}.xhtml"></b:navLink>
                             <b:navLink></b:navLink>
-                            <b:navLink value="Consultar" href="#"></b:navLink>
+                            <b:navLink value="Consultar" href="#{navigation.listarJurados}.xhtml"></b:navLink>
                         </b:dropMenu>
                         <b:dropMenu value="Propuestas" iconAwesome="comment-o">
-                            <b:navLink value="Ver propuestas registradas" href="#"></b:navLink>
+                            <b:navLink value="Ver propuestas registradas" href="#{navigation.listarPropuestas}.xhtml"></b:navLink>
                             <b:navLink></b:navLink>
-                            <b:navLink value="Buscar propuestas por estado" href="#"></b:navLink>
+                            <b:navLink value="Buscar propuestas por estado" href="#{navigation.listarPropuestasEstado}.xhtml"></b:navLink>
                             <b:navLink></b:navLink>
-                            <b:navLink value="Ver propuestas proximo vencimiento" href="#"></b:navLink>
+                            <b:navLink value="Ver propuestas proximo vencimiento" href="#{navigation.listarPropuestasVencer}.xhtml"></b:navLink>
                         </b:dropMenu>
                         <b:dropMenu value="Trabajos de grado" iconAwesome="book" tooltip-position="left">
-                            <b:navLink value="Ver trabasjos vigentes" href="#"></b:navLink>
+                            <b:navLink value="Ver trabasjos vigentes" href="#{navigation.listarTrabajosGrado}.xhtml"></b:navLink>
                             <b:navLink></b:navLink>                            
-                            <b:navLink value="Buscar trabajos por jurado" href="#"></b:navLink>
+                            <b:navLink value="Buscar trabajos por jurado" href="#{navigation.listarTrabajosGradoJurado}.xhtml"></b:navLink>
                             <b:navLink></b:navLink>
-                            <b:navLink value="Ver trabajos próximo vencimiento" href="#"></b:navLink>                            
+                            <b:navLink value="Ver trabajos próximo vencimiento" href="#{navigation.listarTrabajosGradoVencer}.xhtml"></b:navLink>                            
                         </b:dropMenu>
                     </b:navbarLinks>
                 </b:navBar>

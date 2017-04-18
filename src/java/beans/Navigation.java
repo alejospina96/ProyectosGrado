@@ -22,7 +22,16 @@ public class Navigation {
             agregarEstudiante="agregar_estudiante", 
             registrarPropuesta="registrar_propuesta", 
             entregarTrabajo="entregar_trabajo",
-            mostrarEstudiantes="mostrar_estudiantes";
+            mostrarEstudiantes="mostrar_estudiantes",
+            agregarJurado = "agregar_jurado",
+            listarJurados = "listar_jurados",
+            listarPropuestas="listar_propuestas",
+            listarPropuestasEstado="listar_propuestas_estados",
+            listarPropuestasVencer="listar_propuestas_a_vencer",
+            listarTrabajosGrado="listar_trabajos_grado",
+            listarTrabajosGradoJurado="listar_trabajos_grado_jurado",
+            listarTrabajosGradoVencer="listar_trabajos_grado_a_vencer";
+    
     public Navigation() {
     }
 
@@ -81,6 +90,70 @@ public class Navigation {
 
     public void setIndexEstudiante(String indexEstudiante) {
         this.indexEstudiante = indexEstudiante;
+    }
+
+    public String getAgregarJurado() {
+        return agregarJurado;
+    }
+
+    public void setAgregarJurado(String agregarJurado) {
+        this.agregarJurado = agregarJurado;
+    }
+
+    public String getListarJurados() {
+        return listarJurados;
+    }
+
+    public void setListarJurados(String listarJurados) {
+        this.listarJurados = listarJurados;
+    }
+
+    public String getListarPropuestas() {
+        return listarPropuestas;
+    }
+
+    public void setListarPropuestas(String listarPropuestas) {
+        this.listarPropuestas = listarPropuestas;
+    }
+
+    public String getListarPropuestasEstado() {
+        return listarPropuestasEstado;
+    }
+
+    public void setListarPropuestasEstado(String listarPropuestasEstado) {
+        this.listarPropuestasEstado = listarPropuestasEstado;
+    }
+
+    public String getListarPropuestasVencer() {
+        return listarPropuestasVencer;
+    }
+
+    public void setListarPropuestasVencer(String listarPropuestasVencer) {
+        this.listarPropuestasVencer = listarPropuestasVencer;
+    }
+
+    public String getListarTrabajosGrado() {
+        return listarTrabajosGrado;
+    }
+
+    public void setListarTrabajosGrado(String listarTrabajosGrado) {
+        this.listarTrabajosGrado = listarTrabajosGrado;
+    }
+
+    public String getListarTrabajosGradoJurado() {
+        return listarTrabajosGradoJurado;
+    }
+
+    public void setListarTrabajosGradoJurado(String listarTrabajosGradoJurado) {
+        this.listarTrabajosGradoJurado = listarTrabajosGradoJurado;
+    }
+
+    public String getListarTrabajosGradoVencer() {
+        return listarTrabajosGradoVencer;
+    }
+
+    public void setListarTrabajosGradoVencer(String listarTrabajosGradoVencer) {
+        this.listarTrabajosGradoVencer = listarTrabajosGradoVencer;
     }
 
 }
