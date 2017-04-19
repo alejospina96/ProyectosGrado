@@ -6,8 +6,10 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -230,4 +232,11 @@ public class TrabajoGrado implements Serializable {
         return "entities.TrabajoGrado[ tgId=" + tgId + " ]";
     }
     
+    public Long obtenerCodigo(){
+        List <Estudiante> est = new ArrayList<Estudiante>(estudianteCollection);
+        if (!est.isEmpty()) {
+            return est.get(0).getEstudianteCodigo();
+        }
+        return null;
+    }
 }
