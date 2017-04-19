@@ -16,6 +16,25 @@ and open the template in the editor.
     </h:head>
     <h:body>
         <ui:include src="/templates/miembro_comite.xhtml"/>
-        
+        <b:container style-class="table-container">
+            <h1>Lista de Propuestas por Vencer</h1>
+            <b:form>
+                 <b:panel collapsible="false">
+                     <b:commandButton value="Buscar" actionListener="#{listarPropuestasBean.propuestasAVencer()}"/>
+                </b:panel>   
+                
+                <b:dataTable value="#{listarPropuestasBean.propuestasVencer}" var="p" responsive="true"
+                             fixedHeader="true" id="propuesta_tablas"
+                             rendered="#{listarPropuestasBean.propuestasEstado.size() > 0 eq true}">
+                    <b:dataTableColumn label="ID" value="#{p.propuestaTrabajo}"/>
+                    <b:dataTableColumn label="Fecha" value="#{p.propuestaFecha}"/>
+                    <b:dataTableColumn label="Modalidad" value="#{p.trabajoGrado.tgModalidad.modalidadDescripcion}"/>
+                    <b:dataTableColumn label="Tematica" value="#{p.trabajoGrado.tgTematica}"/>
+                    <b:dataTableColumn label="Codigo Estudiante" value="#{p.trabajoGrado.obtenerCodigo()}"/>
+                    <b:dataTableColumn label="Estado" value="#{p.propuestaConceptoEstado.epDescripcion}"/>
+                    <b:dataTableColumn label="Plazo Correciones" value="#{p.propuestaPlazoCorrecciones.plazoFechaFin}"/>
+                </b:dataTable>
+            </b:form>
+        </b:container>
     </h:body>
 </html>

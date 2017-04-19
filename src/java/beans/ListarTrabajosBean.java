@@ -11,6 +11,7 @@ import controlers.TrabajoGradoJpaController;
 import entities.Persona;
 import entities.TrabajoGrado;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -83,12 +84,37 @@ public class ListarTrabajosBean {
             Collection<Persona> personaC = trabajos.get(i).getPersonaCollection();
             List <Persona> personas = new ArrayList<Persona>(personaC);
             for (int j = 0; j < personas.size(); j++) {
-                if(personas.get(j).getPersonaIdentificacion()== id){
+                if(personas.get(j).getPersonaIdentificacion().longValue() == id.longValue()){
                     trabajosJutado.add(trabajos.get(i));
+                    System.out.println(id +" comparado con "+ personas.get(j).getPersonaIdentificacion());
                 }
             }
         }
         return trabajosJutado;
     }
     
+    public List trabajosVencerMetodo(){
+        trabajosVencer = new TrabajoGradoJpaController(Data.EMF).findTrabajoGradoEntities() ;
+        trabajosVencer.clear();
+        Date fecha1;
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, 60);
+        fecha = calendar.getTime();
+        for (int i = 0; i < trabajos.size(); i++) {
+            try {
+                if(trabajos.get(i).getTgPlazoEntrega().getPlazoFechaFin()!= null){
+                fecha1 = trabajos.get(i).getTgPlazoEntrega().getPlazoFechaFin();
+                if(fecha.after(fecha1)){
+                    trabajosVencer.add(trabajos.get(i));
+                }
+              }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        return trabajosVencer;
+    }
+    
+           
 }

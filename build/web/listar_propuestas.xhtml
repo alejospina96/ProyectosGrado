@@ -26,7 +26,7 @@ and open the template in the editor.
                     <b:dataTableColumn label="Fecha" value="#{p.propuestaFecha}"/>
                     <b:dataTableColumn label="Modalidad" value="#{p.trabajoGrado.tgModalidad.modalidadDescripcion}"/>
                     <b:dataTableColumn label="Tematica" value="#{p.trabajoGrado.tgTematica}"/>
-                    <b:dataTableColumn label="Codigo Estudiante" value=""/>
+                    <b:dataTableColumn label="Codigo Estudiante" value="#{p.trabajoGrado.obtenerCodigo()}"/>
                     <b:dataTableColumn label="Estado" value="#{p.propuestaConceptoEstado.epDescripcion}"/>
                     <b:dataTableColumn label="Plazo Correciones" value="#{p.propuestaPlazoCorrecciones.plazoFechaFin}"/>
                 </b:dataTable>
