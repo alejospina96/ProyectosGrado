@@ -123,7 +123,7 @@ public class Estudiante implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Estudiante[ estudianteCodigo=" + estudianteCodigo + " ]";
+        return estudianteCodigo+"";
     }
     
 }

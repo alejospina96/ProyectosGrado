@@ -23,13 +23,12 @@ and open the template in the editor.
                             <h:outputText value="Modalidad:*"/>
                         </b:column>
                         <b:column medium-screen="7">
-                            <b:selectOneMenu required-message=" Selecciona una modalidad!" 
+                            <b:selectOneMenu value="#{registrarPropuestaBean.modalidad.modalidadId}" 
+                                             required-message=" Selecciona una modalidad!" 
                                              id="sel_modalidad" 
                                              required="true">
                                 <f:selectItem itemLabel="Seleccione una opción" itemValue=""/>
-                                <f:selectItem itemLabel="Fiat" itemValue="1"/>
-                                <f:selectItem itemLabel="Honda" itemValue="2"/>
-                                <f:selectItem itemLabel="Opel" itemValue="3"/>
+                                <f:selectItems value="#{listaModalidadesBean.modalidades}" var="modalidad" itemValue="#{modalidad.modalidadId}" itemLabel="#{modalidad.modalidadDescripcion}" />                               
                             </b:selectOneMenu>
                             <h:message class="mensaje-error" for="sel_modalidad" />
                         </b:column>
@@ -42,7 +41,8 @@ and open the template in the editor.
                             <b:inputText placeholder="De qué tratara tu proyecto en pocas palabras" 
                                          required-message=" Ingresa una temática!" 
                                          id="txt_tematica" 
-                                         required="true"/>
+                                         required="true"
+                                         value="#{registrarPropuestaBean.trabajo.tgTematica}"/>
                             <h:message class="mensaje-error" for="txt_tematica" />
                         </b:column>
                     </b:row>
@@ -53,7 +53,8 @@ and open the template in the editor.
                         <b:column medium-screen="7">
                             <b:inputText required-message=" Sube tu propuesta!" 
                                          id="file_propuesta" 
-                                         required="true"/>
+                                         required="true"
+                                         value="#{registrarPropuestaBean.propuesta.propuestaArchivo}"/>
                             <h:message class="mensaje-error" for="file_propuesta" />
                         </b:column>
                     </b:row>
@@ -69,13 +70,23 @@ and open the template in the editor.
                                          placeholder='Enter para agregar'
                                          render-label="true" 
                                          required="true"
+                                         value="#{registrarPropuestaBean.estudiantes}"
                                          required-message=" Ingresa por lo menos un código!" 
-                                         id="txt_codigos"/>
+                                         id="txt_codigos"
+                                         typeahead="true"
+                                         typeahead-values="#{listaEstudiantesBean.estudiantes}"/>
                             <h:message class="mensaje-error" for="txt_codigos" />
+                            <h:outputLabel value="#{registrarPropuestaBean.errorEstudiantes}"/>
                         </b:column>
-                    </b:row>                   
+                    </b:row>  
                     <b:row>
-                        <center><b:commandButton update="@form" value="Enviar" look="primary"/></center>
+                        <center>
+                            <h:outputText styleClass="mensaje-error" value="#{registrarPropuestaBean.error}"/>
+                            <h:outputText styleClass="mensaje-success" value="#{registrarPropuestaBean.successMessage}"/>
+                        </center>
+                    </b:row>
+                    <b:row>
+                        <center><b:commandButton update="@form" value="Enviar" look="primary" action="#{registrarPropuestaBean.guardar}"/></center>
                     </b:row>
                 </b:panel>
             </b:container>

@@ -11,13 +11,14 @@ import entities.Estudiante;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author daniel
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class ListaEstudiantesBean {
 
     /**
@@ -26,7 +27,7 @@ public class ListaEstudiantesBean {
     public ListaEstudiantesBean() {
     }
     private List<Estudiante> estudiantes = new EstudianteJpaController(Data.EMF).findEstudianteEntities();;
-
+   
     public List<Estudiante> getEstudiantes() {
         return estudiantes;
     }

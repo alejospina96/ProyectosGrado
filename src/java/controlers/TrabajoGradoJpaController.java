@@ -26,6 +26,8 @@ import entities.TrabajoGrado;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
 
 /**
  *
@@ -42,7 +44,8 @@ public class TrabajoGradoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(TrabajoGrado trabajoGrado) {
+    public int create(TrabajoGrado trabajoGrado) {
+        int lastId = -1;
         if (trabajoGrado.getEstudianteCollection() == null) {
             trabajoGrado.setEstudianteCollection(new ArrayList<Estudiante>());
         }
@@ -153,10 +156,13 @@ public class TrabajoGradoJpaController implements Serializable {
             }
             em.getTransaction().commit();
         } finally {
-            if (em != null) {
+            if (em != null) {                
+                lastId = em.createQuery("SELECT MAX(t.tgId) FROM TrabajoGrado t", Integer.class).getSingleResult();
+                 
                 em.close();
             }
         }
+        return lastId;
     }
 
     public void edit(TrabajoGrado trabajoGrado) throws IllegalOrphanException, NonexistentEntityException, Exception {
@@ -460,5 +466,5 @@ public class TrabajoGradoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }
