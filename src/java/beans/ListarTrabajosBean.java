@@ -92,29 +92,4 @@ public class ListarTrabajosBean {
         }
         return trabajosJutado;
     }
-    
-    public List trabajosVencerMetodo(){
-        trabajosVencer = new TrabajoGradoJpaController(Data.EMF).findTrabajoGradoEntities() ;
-        trabajosVencer.clear();
-        Date fecha1;
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, 60);
-        fecha = calendar.getTime();
-        for (int i = 0; i < trabajos.size(); i++) {
-            try {
-                if(trabajos.get(i).getTgPlazoEntrega().getPlazoFechaFin()!= null){
-                fecha1 = trabajos.get(i).getTgPlazoEntrega().getPlazoFechaFin();
-                if(fecha.after(fecha1)){
-                    trabajosVencer.add(trabajos.get(i));
-                }
-              }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        
-        return trabajosVencer;
-    }
-    
-           
 }

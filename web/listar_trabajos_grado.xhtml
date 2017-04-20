@@ -28,8 +28,18 @@ and open the template in the editor.
                     <b:dataTableColumn label="Estado" value="#{t.tgConceptoEstado.epgDescripcion}"/>
                     <b:dataTableColumn label="Fecha Defensa" value="#{t.fechaDefensa}"/>
                     <b:dataTableColumn label="Plazo de Entrega" value="#{t.tgPlazoEntrega.plazoFechaFin}"/>
+                    <b:dataTableColumn label="">
+                        <b:commandButton value="Aprobar" iconAwesome="thumbs-up" onclick="setHiddenValue(#{t.tgId})"
+                                         actionListener="#{listarTrabajosBean.aprovar()}"/>
+                    </b:dataTableColumn>
                 </b:dataTable>
             </b:form>
         </b:container>
+        <script>
+            function setHiddenValue(new_value) {
+                document.getElementById('validar_trabajo').value = new_value;
+                //j_idt39tabla_estudiantes_wrapper.DataTable().destroy();
+            }
+        </script>
     </h:body>
 </html>
