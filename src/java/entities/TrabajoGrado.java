@@ -232,11 +232,17 @@ public class TrabajoGrado implements Serializable {
         return "entities.TrabajoGrado[ tgId=" + tgId + " ]";
     }
     
-    public Long obtenerCodigo(){
+    public String obtenerCodigo(){
         List <Estudiante> est = new ArrayList<Estudiante>(estudianteCollection);
+        String res = "";
         if (!est.isEmpty()) {
-            return est.get(0).getEstudianteCodigo();
+            for (int i = 0; i < est.size(); i++) {
+                res+= est.get(i).getEstudiantePersona().getPersonaPNombre()+ "\n " + est.get(i).getEstudiantePersona().getPersonaPApellido()+ "\n";                
+            }
+            return res;
+        }else{
+            res = "NULL";
         }
-        return null;
+        return res;
     }
 }

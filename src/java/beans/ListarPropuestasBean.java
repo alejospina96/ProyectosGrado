@@ -85,27 +85,5 @@ public class ListarPropuestasBean {
         return propuestasEstado;
     }
     
-    public List propuestasAVencer(){
-        propuestasVencer = new PropuestaJpaController(Data.EMF).findPropuestaEntities();
-        propuestasVencer.clear();
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, 60);
-        fecha = calendar.getTime();
-        Date fecha1;
-        for (int i = 0; i < propuestas.size(); i++) {
-            try {
-                if (propuestas.get(i).getPropuestaFechaEntrega() != null) {
-                    fecha1 = propuestas.get(i).getPropuestaFechaEntrega();
-                    if(fecha.after(fecha1)){
-                        propuestasVencer.add(propuestas.get(i));
-                    }
-                }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        return propuestasVencer;
-    }
-    
     
 }
