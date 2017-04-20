@@ -104,7 +104,7 @@ public class EstadoTrabajoGrado implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.EstadoTrabajoGrado[ epgId=" + epgId + " ]";
+        return epgId + "";
     }
     
 }

@@ -26,8 +26,7 @@ import entities.TrabajoGrado;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
+import org.eclipse.persistence.jpa.config.NamedQuery;
 
 /**
  *
@@ -156,9 +155,9 @@ public class TrabajoGradoJpaController implements Serializable {
             }
             em.getTransaction().commit();
         } finally {
-            if (em != null) {                
+            if (em != null) {
                 lastId = em.createQuery("SELECT MAX(t.tgId) FROM TrabajoGrado t", Integer.class).getSingleResult();
-                 
+
                 em.close();
             }
         }
@@ -449,6 +448,17 @@ public class TrabajoGradoJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             return em.find(TrabajoGrado.class, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<TrabajoGrado> findTrabajosVigentes() {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("TrabajoGrado.findByDiffConcepto");
+            q.setParameter("epgId", 1);
+            return q.getResultList();
         } finally {
             em.close();
         }

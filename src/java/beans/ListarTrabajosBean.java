@@ -6,7 +6,6 @@
 package beans;
 
 import Classes.Data;
-import controlers.PropuestaJpaController;
 import controlers.TrabajoGradoJpaController;
 import entities.Persona;
 import entities.TrabajoGrado;
@@ -28,13 +27,14 @@ public class ListarTrabajosBean {
 
     private Long id;
     private Date fecha;
-    private List<TrabajoGrado> trabajos = new TrabajoGradoJpaController(Data.EMF).findTrabajoGradoEntities();
+    private List<TrabajoGrado> trabajos;
     private List<TrabajoGrado> trabajosJutado;
     private List<TrabajoGrado> trabajosVencer;
     /**
      * Creates a new instance of ListarTrabajosBean
      */
     public ListarTrabajosBean() {
+        this.trabajos = new TrabajoGradoJpaController(Data.EMF).findTrabajosVigentes();
     }
 
     public List<TrabajoGrado> getTrabajos() {
@@ -116,5 +116,5 @@ public class ListarTrabajosBean {
         return trabajosVencer;
     }
     
-           
+    
 }

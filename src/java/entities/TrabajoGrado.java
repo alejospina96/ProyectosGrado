@@ -39,7 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "trabajo_grado")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TrabajoGrado.findAll", query = "SELECT t FROM TrabajoGrado t"),
+    @NamedQuery(name = "TrabajoGrado.findAll", query = "SELECT t FROM TrabajoGrado t "),
+    @NamedQuery(name = "TrabajoGrado.findByDiffConcepto", query = "SELECT t FROM TrabajoGrado t WHERE t.tgConceptoEstado.epgId != :epgId"),
     @NamedQuery(name = "TrabajoGrado.findByTgId", query = "SELECT t FROM TrabajoGrado t WHERE t.tgId = :tgId"),
     @NamedQuery(name = "TrabajoGrado.findByTgTematica", query = "SELECT t FROM TrabajoGrado t WHERE t.tgTematica = :tgTematica"),
     @NamedQuery(name = "TrabajoGrado.findByTgArchivo", query = "SELECT t FROM TrabajoGrado t WHERE t.tgArchivo = :tgArchivo"),
@@ -232,11 +233,17 @@ public class TrabajoGrado implements Serializable {
         return "entities.TrabajoGrado[ tgId=" + tgId + " ]";
     }
     
-    public Long obtenerCodigo(){
+    public String obtenerCodigo(){
         List <Estudiante> est = new ArrayList<Estudiante>(estudianteCollection);
+        String res = "";
         if (!est.isEmpty()) {
-            return est.get(0).getEstudianteCodigo();
+            for (int i = 0; i < est.size(); i++) {
+                res+= est.get(i).getEstudiantePersona().getPersonaPNombre()+ "\n " + est.get(i).getEstudiantePersona().getPersonaPApellido()+ "\n";                
+            }
+            return res;
+        }else{
+            res = "NULL";
         }
-        return null;
+        return res;
     }
 }

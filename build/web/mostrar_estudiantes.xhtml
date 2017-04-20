@@ -19,25 +19,35 @@ and open the template in the editor.
             <h1>Ver todos los estudiantes</h1>
             <b:form >
                 <input type="hidden" name="estudiante_eliminar" id="estudiante_eliminar" value=""/>
-                <h:outputLabel styleClass="mensaje-error" value="#{eliminarEstudianteBean.error}"></h:outputLabel>
-                <h:outputLabel styleClass="mensaje-success" value="#{eliminarEstudianteBean.success}"></h:outputLabel>
+                <h:outputLabel styleClass="mensaje-error" 
+                               value="#{eliminarEstudianteBean.error}">
+                </h:outputLabel>
+                <h:outputLabel styleClass="mensaje-success" 
+                               value="#{eliminarEstudianteBean.success}">
+                </h:outputLabel>
                 <b:dataTable value="#{listaEstudiantesBean.estudiantes}" 
                              var="e"
                              fixedHeader="true"
                              responsive="true"
                              id="tabla_estudiantes">
-                    <b:dataTableColumn label="Código" value="#{e.estudianteCodigo}" />
-                    <b:dataTableColumn label="Documento" value="#{e.estudiantePersona.personaIdentificacion}" />
-                    <b:dataTableColumn label="P Apellido" value="#{e.estudiantePersona.personaPApellido}" />
-                    <b:dataTableColumn label="S Apellido" value="#{e.estudiantePersona.personaSApellido}" />
-                    <b:dataTableColumn label="P Nombre" value="#{e.estudiantePersona.personaPNombre}" />
-                    <b:dataTableColumn label="S Nombre" value="#{e.estudiantePersona.personaSNombre}" />
-                    <b:dataTableColumn label="Email" value="#{e.estudiantePersona.personaEmail}" />
+                    <b:dataTableColumn label="Código" 
+                                       value="#{e.estudianteCodigo}" />
+                    <b:dataTableColumn label="Documento" 
+                                       value="#{e.estudiantePersona.personaIdentificacion}" />
+                    <b:dataTableColumn label="P Apellido" 
+                                       value="#{e.estudiantePersona.personaPApellido}" />
+                    <b:dataTableColumn label="S Apellido" 
+                                       value="#{e.estudiantePersona.personaSApellido}" />
+                    <b:dataTableColumn label="P Nombre" 
+                                       value="#{e.estudiantePersona.personaPNombre}" />
+                    <b:dataTableColumn label="S Nombre" 
+                                       value="#{e.estudiantePersona.personaSNombre}" />
+                    <b:dataTableColumn label="Email" 
+                                       value="#{e.estudiantePersona.personaEmail}" />
                     <b:dataTableColumn label="">
                         <b:commandButton value="Eliminar" 
                                          look="danger"
                                          iconAwesome="times" 
-                                         update="tabla_estudiantes"
                                          onclick="setHiddenValue('#{e.estudianteCodigo}');"
                                          actionListener="#{eliminarEstudianteBean.eliminar}">
                         </b:commandButton>   
@@ -47,7 +57,7 @@ and open the template in the editor.
         </b:container>
         <script>
             function setHiddenValue(new_value) {
-                document.getElementById('estudiante_eliminar').value = new_value;
+                document.getElementById('estudiante_eliminar').value = new_value;                
                 //j_idt39tabla_estudiantes_wrapper.DataTable().destroy();
             }
         </script>

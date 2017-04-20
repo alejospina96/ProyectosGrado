@@ -5,6 +5,7 @@
  */
 package Classes;
 
+import java.io.Serializable;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -12,7 +13,7 @@ import javax.persistence.Persistence;
  *
  * @author daniel
  */
-public class Data {
+public class Data implements Serializable{
     public final static String PERSISTANCE_UNIT_NAME ="ProyectosGradoJPAPU";
     public final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory(PERSISTANCE_UNIT_NAME);
 }

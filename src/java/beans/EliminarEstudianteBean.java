@@ -11,11 +11,14 @@ import controlers.PersonaJpaController;
 import controlers.exceptions.IllegalOrphanException;
 import controlers.exceptions.NonexistentEntityException;
 import entities.Estudiante;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -31,7 +34,7 @@ public class EliminarEstudianteBean {
     public EliminarEstudianteBean() {
     }
     private Estudiante estudiante = new Estudiante();
-    private String error="", success="";
+    private String error = "", success = "";
 
     public String getError() {
         return error;
@@ -48,6 +51,7 @@ public class EliminarEstudianteBean {
     public void setSuccess(String success) {
         this.success = success;
     }
+
     public Estudiante getEstudiante() {
         return estudiante;
     }
@@ -59,7 +63,7 @@ public class EliminarEstudianteBean {
     public String eliminar() {
         String value = FacesContext.getCurrentInstance().
                 getExternalContext().getRequestParameterMap().get("estudiante_eliminar");
-        System.out.println("El valo es ="+value);
+        System.out.println("El valo es =" + value);
         PersonaJpaController pController = new PersonaJpaController(Data.EMF);
         EstudianteJpaController controller = new EstudianteJpaController(Data.EMF);
         try {
@@ -67,13 +71,20 @@ public class EliminarEstudianteBean {
             Long id = controller.findEstudiante(cod).getEstudiantePersona().getPersonaIdentificacion();
             controller.destroy(cod);
             pController.destroy(id);
-            success="Estudiante eliminado con exito";
+            success = "Estudiante eliminado con exito";
         } catch (IllegalOrphanException ex) {
             Logger.getLogger(EliminarEstudianteBean.class.getName()).log(Level.SEVERE, null, ex);
-            error="Error al eliminar a la persona";
+            error = "Error al eliminar a la persona";
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(EliminarEstudianteBean.class.getName()).log(Level.SEVERE, null, ex);
-            error="El estudiante no existe";
+            error = "El estudiante no existe";
+        }
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+        } catch (IOException ex) {
+            Logger.getLogger(EliminarEstudianteBean.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error: "+ex.getMessage());
         }
         return new Navigation().getMostrarEstudiantes();
     }
