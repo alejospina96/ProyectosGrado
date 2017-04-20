@@ -8,6 +8,7 @@ package beans;
 import Classes.Data;
 import controlers.PropuestaJpaController;
 import entities.Propuesta;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -83,4 +84,6 @@ public class ListarPropuestasBean {
         }
         return propuestasEstado;
     }
+    
+    
 }

@@ -11,30 +11,17 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Lista Trabajos Por Jurado</title>
+        <title>Lista Trabajos A Vencer</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
         <ui:include src="/templates/miembro_comite.xhtml"/>
         <b:container style-class="table-container">
-            <h1>Lista de Trabajos por Jurado Buscado</h1>
+            <h1>Lista de Trabajos por Vencer</h1>
             <b:form>
-                <b:panel collapsible="false">
-                    <b:row>
-                        <b:column medium-screen="4">
-                            <h:outputLabel value="ID Jurado"/>
-                        </b:column>
-                        <b:column medium-screen="8">
-                            <b:inputText value="#{listarTrabajosBean.id}" required-message=" Ingrese un Estado!" id="txt_id" placeholder="Ingrese la CC" required="true" />
-                            <h:message class="mensaje-error" for="txt_id" />
-                        </b:column>
-                    </b:row>
-                    <b:commandButton value="Buscar" actionListener="#{}"/>
-                </b:panel>
-                
-                <b:dataTable value="#{listarPropuestasBean.propuestasEstado}" var="p" responsive="true"
-                             fixedHeader="true" id="propuesta_tablas"
-                             rendered="#{listarPropuestasBean.propuestasEstado.size() > 0 eq true}">
+                <b:dataTable value="#{listarTrabajosVencerBean.trabajosVencer}" var="t" responsive="true"
+                             fixedHeader="true" id="trabajos_tablas"
+                             rendered="#{listarTrabajosVencerBean.trabajosVencer.size() > 0 eq true}">
                     <b:dataTableColumn label="ID" value="#{t.tgId}"/>
                     <b:dataTableColumn label="Tematica" value="#{t.tgTematica}"/>
                     <b:dataTableColumn label="Modalidad" value="#{t.tgModalidad.modalidadDescripcion}"/>

@@ -11,6 +11,7 @@ import controlers.TrabajoGradoJpaController;
 import entities.Persona;
 import entities.TrabajoGrado;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -83,12 +84,12 @@ public class ListarTrabajosBean {
             Collection<Persona> personaC = trabajos.get(i).getPersonaCollection();
             List <Persona> personas = new ArrayList<Persona>(personaC);
             for (int j = 0; j < personas.size(); j++) {
-                if(personas.get(j).getPersonaIdentificacion()== id){
+                if(personas.get(j).getPersonaIdentificacion().longValue() == id.longValue()){
                     trabajosJutado.add(trabajos.get(i));
+                    System.out.println(id +" comparado con "+ personas.get(j).getPersonaIdentificacion());
                 }
             }
         }
         return trabajosJutado;
     }
-    
 }

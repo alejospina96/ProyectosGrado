@@ -168,5 +168,4 @@ public class Propuesta implements Serializable {
     public String toString() {
         return "entities.Propuesta[ propuestaTrabajo=" + propuestaTrabajo + " ]";
     }
-    
 }
